@@ -7,6 +7,8 @@
 #include "SFML/Graphics/RectangleShape.hpp"
 #include "Skeleton.h"
 #include "Bullet.h"
+#include "Boss.h"
+
 class Player {
 private:
     sf::Texture playerTexture;
@@ -19,6 +21,10 @@ private:
 
     sf::RectangleShape boundingRectangle;
     sf::Vector2i size;
+    sf::IntRect goUpTexture;
+    sf::IntRect goDownTexture;
+    sf::IntRect goLeftTexture;
+    sf::IntRect goRightTexture;
 public:
     sf::Sprite playerSprite;
 public:
@@ -27,7 +33,7 @@ public:
 
     void Initialize();
     void Load();
-    void Update(float deltaTime, Skeleton& skeleton, sf::Vector2f& mousePosition);
+    void Update(float deltaTime, std::vector<Enemy*>& enemies, sf::Vector2f& mousePosition);
     void Draw(sf::RenderWindow& window);
 };
 

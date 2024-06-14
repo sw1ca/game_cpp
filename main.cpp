@@ -6,6 +6,8 @@
 #include "Skeleton.h"
 #include "FrameRate.h"
 #include "Map.h"
+#include "Boss.h"
+#include "Enemy.h"
 
 auto main() -> int {
     //-------------------------------- INITIALIZE --------------------------------
@@ -16,22 +18,26 @@ auto main() -> int {
     //-------------------------------- INITIALIZE --------------------------------
     Player player;
     Skeleton skeleton;
+    Boss boss;
     FrameRate frameRate;
     Map map;
     // -------------------------INITIALIZE------------------------
     player.Initialize();
     skeleton.Initialize();
+    boss.Initialize();
     frameRate.Initialize();
     map.Initialize();
     // -------------------------INITIALIZE------------------------
     // -------------------------LOAD------------------------
     player.Load();
     skeleton.Load();
+    boss.Load();
     frameRate.Load();
     map.Load();
     // -------------------------LOAD------------------------
 
     sf::Clock clock;
+    std::vector<Enemy*> enemies = { &skeleton, &boss };
 
     //main game loop
     while (window.isOpen())
@@ -50,14 +56,16 @@ auto main() -> int {
 
         frameRate.Update(deltaTime);
         map.Update(deltaTime);
+        player.Update(deltaTime, enemies, mousePosition);
         skeleton.Update(deltaTime);
-        player.Update(deltaTime, skeleton, mousePosition);
+        boss.Update(deltaTime);
         //-------------------------------- UPDATE --------------------------------
         //-------------------------------- DRAW --------------------------------
         window.clear(sf::Color::Black);
         map.Draw(window);
-        skeleton.Draw(window);
         player.Draw(window);
+        skeleton.Draw(window);
+        boss.Draw(window);
         frameRate.Draw(window);
         window.display();
         //-------------------------------- DRAW --------------------------------

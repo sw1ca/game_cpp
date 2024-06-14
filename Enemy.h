@@ -7,6 +7,9 @@
 
 class Enemy {
 public:
+    sf::Sprite sprite;
+    int health;
+
     Enemy();
     virtual ~Enemy();
 
@@ -16,9 +19,7 @@ public:
     virtual void Draw(sf::RenderWindow& window);
 
     void ChangeHealth(int hp);
-
-    sf::Sprite sprite;
-    int health;
+    inline const sf::Rect<float> GetGlobalBounds() const { return sprite.getGlobalBounds(); }
 protected:
     sf::RectangleShape boundingRectangle;
     sf::Text healthText;

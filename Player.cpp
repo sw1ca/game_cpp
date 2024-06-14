@@ -15,6 +15,12 @@ void Player::Initialize() {
     boundingRectangle.setOutlineThickness(1);
 
     size = sf::Vector2i(64, 64);
+
+    goUpTexture = sf::IntRect(0, 0, size.x, size.y);
+    goLeftTexture = sf::IntRect(0, 1 * size.y, size.x, size.y);
+    goRightTexture = sf::IntRect(0, 3 * size.y, size.x, size.y);
+    goDownTexture = sf::IntRect(0, 2 * size.y, size.x, size.y);
+
 }
 void Player::Load() {
     if(playerTexture.loadFromFile("assets/images/spritesheet.png")){
@@ -22,7 +28,7 @@ void Player::Load() {
         playerSprite.setTexture(playerTexture);
 
         int XIndex = 0;
-        int YIndex = 0;
+        int YIndex = 3;
 
         playerSprite.setTextureRect(sf::IntRect(XIndex * size.x, YIndex * size.y, size.x, size.y));
         playerSprite.setPosition(sf::Vector2f(0, 0));
@@ -33,21 +39,30 @@ void Player::Load() {
         std::cout << "Player image failed to loaded!" << std::endl;
     }
 }
-void Player::Update(float deltaTime ,Skeleton& skeleton, sf::Vector2f& mousePosition) {
+void Player::Update(float deltaTime, std::vector<Enemy*>& enemies, sf::Vector2f& mousePosition) {
     sf::Vector2f position = playerSprite.getPosition();
     sf::Vector2f movement(0.f, 0.f);
 
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
         movement.y -= 0.75f;
+        playerSprite.setTextureRect(goUpTexture);
+    }
 
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
         movement.x -= 0.75f;
+        playerSprite.setTextureRect(goLeftTexture);
+    }
 
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
         movement.y += 0.75f;
+        playerSprite.setTextureRect(goDownTexture);
+    }
 
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
         movement.x += 0.75f;
+        playerSprite.setTextureRect(goRightTexture);
+    }
 
     playerSprite.setPosition(position + movement * playerSpeed * deltaTime);
 
@@ -63,15 +78,14 @@ void Player::Update(float deltaTime ,Skeleton& skeleton, sf::Vector2f& mousePosi
     }
 
     for(size_t i = 0; i < bullets.size(); i++) {
-        //sf::Vector2f bulletDirection = mousePosition - bullets[i].getPosition();
-        //bullets[i].setPosition(bullets[i].getPosition() + bulletDirection * bulletSpeed * deltaTime);
-
         bullets[i].Update(deltaTime);
 
-        if (skeleton.health > 0) {
-            if (Math::didRectCollide(bullets[i].GetGlobalBounds(), skeleton.sprite.getGlobalBounds())) {
-                skeleton.ChangeHealth(-10);
-                bullets.erase(bullets.begin() + i); // deleting bullets
+        for (Enemy* enemy : enemies) {
+            if (enemy -> health > 0) {
+                if (Math::didRectCollide(bullets[i].GetGlobalBounds(), enemy->GetGlobalBounds())) {
+                    enemy -> ChangeHealth(-10);
+                    bullets.erase(bullets.begin() + i); // deleting bullets
+                }
             }
         }
     }
