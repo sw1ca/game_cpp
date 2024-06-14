@@ -69,7 +69,7 @@ void Player::Update(float deltaTime ,Skeleton& skeleton, sf::Vector2f& mousePosi
         bullets[i].Update(deltaTime);
 
         if (skeleton.health > 0) {
-            if (Math::didRectCollide(bullets[i].GetGlobalBounds(), skeleton.skeletonSprite.getGlobalBounds())) {
+            if (Math::didRectCollide(bullets[i].GetGlobalBounds(), skeleton.sprite.getGlobalBounds())) {
                 skeleton.ChangeHealth(-10);
                 bullets.erase(bullets.begin() + i); // deleting bullets
             }

@@ -19,7 +19,7 @@ private:
 
     int mapNumbers[6] = {
             1, 1, 1,
-            17, 31, 30
+            17, 31, 165
     };
 
     sf::Sprite mapSprites[6];

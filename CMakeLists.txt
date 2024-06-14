@@ -34,6 +34,8 @@ add_executable(2324L_25_s31225_SR main.cpp
         Player.h
         Skeleton.cpp
         Skeleton.h
+        Enemy.cpp
+        Enemy.h
 )
 add_custom_command(
         TARGET 2324L_25_s31225_SR POST_BUILD
