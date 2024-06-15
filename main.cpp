@@ -60,11 +60,6 @@ auto main() -> int {
         skeleton.Update(deltaTime);
         boss.Update(deltaTime);
 
-        for(auto* enemy : enemies) {
-            if (enemy -> CheckPlayerDetectionCollision(player.getBoundingRectanglePosition())) {
-                std::cout << "Enemy starts shooting player" << std::endl;
-            }
-        }
         //-------------------------------- UPDATE --------------------------------
         //-------------------------------- DRAW --------------------------------
         window.clear(sf::Color::Black);

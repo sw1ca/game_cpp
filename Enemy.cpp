@@ -70,8 +70,6 @@ bool Enemy::CheckPlayerDetectionCollision(const sf::RectangleShape &playerShape)
 void Enemy::shootingPlayer(float deltaTime) {
     sf::Vector2f playerPosition = player->getPosition();
     sf::RectangleShape playerShape = player->getBoundingRectanglePosition();
-    std::cout << "fireRateTimer: "<< fireRateTimer << std::endl;
-    std::cout << "maxFireRate: "<< maxFireRate << std::endl;
     if(CheckPlayerDetectionCollision(playerShape) && fireRateTimer >= maxFireRate) {
         bullets.push_back(Bullet());
         int i = bullets.size() - 1;
