@@ -4,6 +4,7 @@
 #include "SFML/Graphics/RectangleShape.hpp"
 #include "SFML/Graphics/Text.hpp"
 #include "SFML/Graphics/Sprite.hpp"
+#include "Bullet.h"
 
 class Player;
 class Enemy {
@@ -12,7 +13,6 @@ public:
     int health;
 
     Enemy(Player& player);
-//    Enemy();
     virtual ~Enemy();
 
     virtual void Initialize();
@@ -23,6 +23,7 @@ public:
     void ChangeHealth(int hp);
     inline const sf::Rect<float> GetGlobalBounds() const { return sprite.getGlobalBounds(); }
     bool CheckPlayerDetectionCollision(const sf::RectangleShape& playerShape);
+    void shootingPlayer(float deltaTime);
 
 protected:
     Player* player;
@@ -34,4 +35,9 @@ protected:
     sf::Texture texture;
     sf::Vector2i shootingSize;
     sf::Vector2i detectionSize;
+
+    std::vector<Bullet> bullets;
+
+    float maxFireRate;
+    float fireRateTimer;
 };
