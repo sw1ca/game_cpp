@@ -1,6 +1,5 @@
 #include <fmt/ranges.h>
 #include <SFML/Graphics.hpp>
-#include <iostream>
 
 #include "Player.h"
 #include "Skeleton.h"
@@ -13,7 +12,7 @@ auto main() -> int {
     //-------------------------------- INITIALIZE --------------------------------
     sf::ContextSettings settings;
     settings.antialiasingLevel = 8;
-    sf::RenderWindow window(sf::VideoMode(1600, 900), "RPG Game", sf::Style::Default, settings);
+    sf::RenderWindow window(sf::VideoMode(1280, 720), "RPG Game", sf::Style::Default, settings);
     window.setFramerateLimit(360);
     //-------------------------------- INITIALIZE --------------------------------
     Player player;

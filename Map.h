@@ -3,6 +3,8 @@
 #include "SFML/Graphics/Texture.hpp"
 #include "SFML/Graphics/Sprite.hpp"
 #include "Tile.h"
+#include <vector>
+#include <string>
 
 class Map {
 private:
@@ -10,19 +12,22 @@ private:
     Tile* tiles;
 
     int totalTiles;
-
     int tileWidth;
     int tileHeight;
 
     int totalTilesX;
     int totalTilesY;
 
-    int mapNumbers[6] = {
-            1, 1, 1,
-            17, 31, 165
-    };
+    int mapWidth;
+    int mapHeight;
+    std::vector<int> mapData;
+    std::vector<sf::Sprite> mapSprites;
 
-    sf::Sprite mapSprites[6];
+    void LoadTileset(const char* tilesetPath);
+    void LoadMapData(const char* mapPath);
+    std::string LoadFileToString(const char* filePath);
+    void ParseCSVData(const std::string& csvData);
+
 public:
     Map();
     ~Map();
