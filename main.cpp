@@ -17,8 +17,8 @@ auto main() -> int {
     window.setFramerateLimit(360);
     //-------------------------------- INITIALIZE --------------------------------
     Player player;
-    Skeleton skeleton;
-    Boss boss;
+    Skeleton skeleton(player);
+    Boss boss(player);
     FrameRate frameRate;
     Map map;
     // -------------------------INITIALIZE------------------------

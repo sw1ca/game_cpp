@@ -3,7 +3,7 @@
 
 class Boss : public Enemy {
 public:
-    Boss();
+    Boss(Player &player);
     ~Boss();
 
     void Initialize() override;

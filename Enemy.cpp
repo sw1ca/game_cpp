@@ -1,7 +1,8 @@
 #include "Enemy.h"
 #include <iostream>
 
-Enemy::Enemy() : health(100) {}
+Enemy::Enemy(Player& player) : health(100), player(&player) {}
+//Enemy::Enemy() : health(100) {}
 Enemy::~Enemy() {}
 
 void Enemy::ChangeHealth(int hp) {

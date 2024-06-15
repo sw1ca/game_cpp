@@ -3,7 +3,10 @@
 
 class Skeleton : public Enemy {
 public:
-    Skeleton();
+//    Skeleton();
+
+    Skeleton(Player &player);
+
     ~Skeleton();
 
     void Initialize() override;

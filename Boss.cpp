@@ -1,7 +1,8 @@
 #include "Boss.h"
 #include <iostream>
 
-Boss::Boss() {
+Boss::Boss(Player& player) : Enemy(player) {
+//Boss::Boss() {
     health = 500;
 }
 Boss::~Boss() {}
