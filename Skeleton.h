@@ -3,8 +3,6 @@
 
 class Skeleton : public Enemy {
 public:
-//    Skeleton();
-
     Skeleton(Player &player);
 
     ~Skeleton();

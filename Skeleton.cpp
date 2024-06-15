@@ -1,7 +1,6 @@
 #include "Skeleton.h"
 #include <iostream>
 
-//Skeleton::Skeleton() {
 Skeleton::Skeleton(Player& player) : Enemy(player) {
     health = 100;
 }

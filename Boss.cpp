@@ -2,7 +2,6 @@
 #include <iostream>
 
 Boss::Boss(Player& player) : Enemy(player) {
-//Boss::Boss() {
     health = 500;
 }
 Boss::~Boss() {}

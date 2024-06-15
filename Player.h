@@ -5,11 +5,10 @@
 #include "SFML/Graphics/RenderWindow.hpp"
 #include "SFML/Graphics/CircleShape.hpp"
 #include "SFML/Graphics/RectangleShape.hpp"
-//#include "Skeleton.h"
 #include "Bullet.h"
-//#include "Boss.h"
-#include "Enemy.h" // Include the full definition of the Enemy class
-class Enemy; // Forward declaration of Enemy class
+#include "Enemy.h"
+
+class Enemy;
 class Player {
 public:
     Player();
