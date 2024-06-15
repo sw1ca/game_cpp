@@ -70,18 +70,21 @@ bool Enemy::CheckPlayerDetectionCollision(const sf::RectangleShape &playerShape)
 void Enemy::shootingPlayer(float deltaTime) {
     sf::Vector2f playerPosition = player->getPosition();
     sf::RectangleShape playerShape = player->getBoundingRectanglePosition();
-    if(CheckPlayerDetectionCollision(playerShape) && fireRateTimer >= maxFireRate) {
+    if (CheckPlayerDetectionCollision(playerShape) && fireRateTimer >= maxFireRate) {
         bullets.push_back(Bullet());
         int i = bullets.size() - 1;
         bullets[i].Initialize(sprite.getPosition(), const_cast<sf::Vector2f &>(playerPosition), 0.2f);
         fireRateTimer = 0;
     }
 
-    for(size_t i = 0; i < bullets.size(); i++) {
+    for (size_t i = 0; i < bullets.size(); i++) {
         bullets[i].Update(deltaTime);
 
-        if (Math::didRectCollide(bullets[i].GetGlobalBounds(), playerShape.getGlobalBounds())) {
-            bullets.erase(bullets.begin() + i); // deleting bullets
+        if (player->health > 0) {
+            if (Math::didRectCollide(bullets[i].GetGlobalBounds(), playerShape.getGlobalBounds())) {
+                player->ChangeHealth(-10);
+                bullets.erase(bullets.begin() + i); // deleting bullets
+            }
         }
     }
 }

@@ -14,16 +14,20 @@ public:
     Player();
     ~Player();
 
+    int health;
     sf::Sprite playerSprite;
     void Initialize();
     void Load();
     void Update(float deltaTime, std::vector<Enemy*>& enemies, sf::Vector2f& mousePosition);
     void Draw(sf::RenderWindow& window);
+    void ChangeHealth(int hp);
+
     sf::Vector2f getPosition() const;
     sf::RectangleShape getBoundingRectanglePosition() const;
 private:
     sf::Texture playerTexture;
-
+    sf::Text healthText;
+    sf::Font font;
     std::vector<Bullet> bullets;
 
     float maxfireRate;
