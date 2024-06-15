@@ -96,7 +96,6 @@ void Map::Load() {
     LoadTileset("assets/Map/Tilesheet.png");
     LoadMapData("assets/Map/map.tmx");
 }
-
 void Map::Update(float deltaTime) {}
 
 void Map::Draw(sf::RenderWindow &window) {

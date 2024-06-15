@@ -28,6 +28,7 @@ void Player::Load() {
     if(font.loadFromFile("assets/Fonts/arial.ttf")) {
         std::cout << "Arial.ttf font has been loaded successfully" << std::endl;
         healthText.setFont(font);
+        healthText.setCharacterSize(15);
         healthText.setString(std::to_string(health));
     }else{
         std::cout << "Failed to load Arial.ttf font" << std::endl;
@@ -40,9 +41,9 @@ void Player::Load() {
         int YIndex = 3;
 
         playerSprite.setTextureRect(sf::IntRect(XIndex * size.x, YIndex * size.y, size.x, size.y));
-        playerSprite.setPosition(sf::Vector2f(0, 0));
+        playerSprite.setPosition(sf::Vector2f(0, 475));
 
-        playerSprite.scale(sf::Vector2f(1.5, 1.5));
+        playerSprite.scale(sf::Vector2f(0.8, 0.8));
         boundingRectangle.setSize(sf::Vector2f(size.x * playerSprite.getScale().x, size.y * playerSprite.getScale().y));
     } else {
         std::cout << "Player image failed to loaded!" << std::endl;
@@ -51,27 +52,27 @@ void Player::Load() {
 void Player::Update(float deltaTime, std::vector<Enemy*>& enemies, sf::Vector2f& mousePosition) {
     if(health > 0) {
         sf::Vector2f position = playerSprite.getPosition();
-        healthText.setPosition(playerSprite.getPosition());
+        healthText.setPosition(playerSprite.getPosition().x + boundingRectangle.getSize().x / 4, playerSprite.getPosition().y - 10);
         sf::Vector2f movement(0.f, 0.f);
 
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
-            movement.y -= 0.75f;
+            movement.y -= 0.20f;
             playerSprite.setTextureRect(goUpTexture);
         }
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
-            movement.x -= 0.75f;
+            movement.x -= 0.20f;
             playerSprite.setTextureRect(goLeftTexture);
         }
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
-            movement.y += 0.75f;
+            movement.y += 0.20f;
             playerSprite.setTextureRect(goDownTexture);
         }
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-            movement.x += 0.75f;
+            movement.x += 0.20f;
             playerSprite.setTextureRect(goRightTexture);
         }
 
@@ -108,7 +109,7 @@ void Player::Update(float deltaTime, std::vector<Enemy*>& enemies, sf::Vector2f&
 void Player::Draw(sf::RenderWindow& window) {
     if (health > 0) {
         window.draw(playerSprite);
-        window.draw(boundingRectangle);
+        //window.draw(boundingRectangle);
         window.draw(healthText);
 
         for (size_t i = 0; i < bullets.size(); ++i) {

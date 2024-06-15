@@ -23,13 +23,13 @@ void Boss::Load() {
     if(texture.loadFromFile("assets/images/Boss.png")){
         std::cout << "Boss Images Loaded!" << std::endl;
         sprite.setTexture(texture);
-        sprite.setPosition(sf::Vector2f(1000, 200));
+        sprite.setPosition(sf::Vector2f(1080, 40));
 
         int XIndex = 3;
         int YIndex = 0;
 
         sprite.setTextureRect(sf::IntRect(XIndex * shootingSize.x, YIndex * shootingSize.y, shootingSize.x, shootingSize.y));
-        sprite.scale(sf::Vector2f(3, 3));
+        sprite.scale(sf::Vector2f(1.8, 1.8));
 
         boundingRectangle.setSize(sf::Vector2f(shootingSize.x * sprite.getScale().x, shootingSize.y * sprite.getScale().y));
         detectionRectangle.setSize(sf::Vector2f(detectionSize.x * sprite.getScale().x, detectionSize.y * sprite.getScale().y));

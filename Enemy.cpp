@@ -25,6 +25,7 @@ void Enemy::Load() {
     if(font.loadFromFile("assets/Fonts/arial.ttf")) {
         std::cout << "Arial.ttf font has been loaded successfully" << std::endl;
         healthText.setFont(font);
+        healthText.setCharacterSize(15);
         healthText.setString(std::to_string(health));
     }else{
         std::cout << "Failed to load Arial.ttf font" << std::endl;
@@ -34,7 +35,9 @@ void Enemy::Load() {
 void Enemy::Update(float deltaTime) {
     if(health > 0) {
         boundingRectangle.setPosition(sprite.getPosition());
-        healthText.setPosition(sprite.getPosition());
+        float textWidth = healthText.getLocalBounds().width;
+        sf::Vector2f boundingSize = boundingRectangle.getSize();
+        healthText.setPosition(sprite.getPosition().x + (boundingSize.x / 2) - (textWidth / 2), sprite.getPosition().y - 10);
 
         // Calculate the center of the boundingRectangle
         sf::Vector2f boundingCenter = sprite.getPosition() + (boundingRectangle.getSize() / 2.0f);
@@ -53,8 +56,8 @@ void Enemy::Update(float deltaTime) {
 void Enemy::Draw(sf::RenderWindow &window) {
     if(health > 0) {
         window.draw(sprite);
-        window.draw(boundingRectangle);
-        window.draw(detectionRectangle);
+        //window.draw(boundingRectangle);
+        //window.draw(detectionRectangle);
         window.draw(healthText);
 
         for (size_t i = 0; i < bullets.size(); ++i) {
