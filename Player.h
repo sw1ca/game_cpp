@@ -35,6 +35,8 @@ public:
     void Load();
     void Update(float deltaTime, std::vector<Enemy*>& enemies, sf::Vector2f& mousePosition);
     void Draw(sf::RenderWindow& window);
+    sf::Vector2f getPosition() const;
+    sf::RectangleShape getBoundingRectanglePosition() const;
 };
 
 

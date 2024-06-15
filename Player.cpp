@@ -101,3 +101,11 @@ void Player::Draw(sf::RenderWindow& window) {
         bullets[i].Draw(window);
     }
 }
+
+sf::Vector2f Player::getPosition() const {
+    return playerSprite.getPosition();
+}
+
+sf::RectangleShape Player::getBoundingRectanglePosition() const {
+    return boundingRectangle;
+}

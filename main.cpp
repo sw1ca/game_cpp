@@ -13,7 +13,7 @@ auto main() -> int {
     //-------------------------------- INITIALIZE --------------------------------
     sf::ContextSettings settings;
     settings.antialiasingLevel = 8;
-    sf::RenderWindow window(sf::VideoMode(1280, 720), "RPG Game", sf::Style::Default, settings);
+    sf::RenderWindow window(sf::VideoMode(1600, 900), "RPG Game", sf::Style::Default, settings);
     window.setFramerateLimit(360);
     //-------------------------------- INITIALIZE --------------------------------
     Player player;
@@ -59,6 +59,12 @@ auto main() -> int {
         player.Update(deltaTime, enemies, mousePosition);
         skeleton.Update(deltaTime);
         boss.Update(deltaTime);
+
+        for(auto* enemy : enemies) {
+            if (enemy -> CheckPlayerDetectionCollision(player.getBoundingRectanglePosition())) {
+                std::cout << "Enemy starts shooting player" << std::endl;
+            }
+        }
         //-------------------------------- UPDATE --------------------------------
         //-------------------------------- DRAW --------------------------------
         window.clear(sf::Color::Black);

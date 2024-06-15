@@ -7,7 +7,8 @@ Boss::Boss() {
 Boss::~Boss() {}
 void Boss::Initialize() {
     Enemy::Initialize();
-    size = sf::Vector2i(64, 64);
+    shootingSize = sf::Vector2i(64, 64);
+    detectionSize = sf::Vector2i(128, 128);
 }
 
 void Boss::Load() {
@@ -27,10 +28,11 @@ void Boss::Load() {
         int XIndex = 3;
         int YIndex = 0;
 
-        sprite.setTextureRect(sf::IntRect(XIndex * size.x, YIndex * size.y, size.x, size.y));
+        sprite.setTextureRect(sf::IntRect(XIndex * shootingSize.x, YIndex * shootingSize.y, shootingSize.x, shootingSize.y));
         sprite.scale(sf::Vector2f(3, 3));
 
-        boundingRectangle.setSize(sf::Vector2f(size.x * sprite.getScale().x, size.y * sprite.getScale().y));
+        boundingRectangle.setSize(sf::Vector2f(shootingSize.x * sprite.getScale().x, shootingSize.y * sprite.getScale().y));
+        detectionRectangle.setSize(sf::Vector2f(detectionSize.x * sprite.getScale().x, detectionSize.y * sprite.getScale().y));
     } else {
         std::cout << "Boss image failed to loaded!" << std::endl;
     }

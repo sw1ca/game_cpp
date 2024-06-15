@@ -20,12 +20,15 @@ public:
 
     void ChangeHealth(int hp);
     inline const sf::Rect<float> GetGlobalBounds() const { return sprite.getGlobalBounds(); }
+    bool CheckPlayerDetectionCollision(const sf::RectangleShape& playerShape);
+
 protected:
     sf::RectangleShape boundingRectangle;
+    sf::RectangleShape detectionRectangle;
     sf::Text healthText;
     sf::Font font;
 
     sf::Texture texture;
-    sf::Vector2i size;
+    sf::Vector2i shootingSize;
+    sf::Vector2i detectionSize;
 };
-

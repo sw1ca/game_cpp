@@ -8,7 +8,8 @@ Skeleton::~Skeleton() {}
 
 void Skeleton::Initialize() {
     Enemy::Initialize();
-    size = sf::Vector2i(64, 64);
+    shootingSize = sf::Vector2i(64, 64);
+    detectionSize = sf::Vector2i(350, 350);
 }
 void Skeleton::Load() {
     if(font.loadFromFile("assets/Fonts/arial.ttf")) {
@@ -27,10 +28,11 @@ void Skeleton::Load() {
         int XIndex = 0;
         int YIndex = 2;
 
-        sprite.setTextureRect(sf::IntRect(XIndex * size.x, YIndex * size.y, size.x, size.y));
+        sprite.setTextureRect(sf::IntRect(XIndex * shootingSize.x, YIndex * shootingSize.y, shootingSize.x, shootingSize.y));
         sprite.scale(sf::Vector2f(1.5, 1.5));
 
-        boundingRectangle.setSize(sf::Vector2f(size.x * sprite.getScale().x, size.y * sprite.getScale().y));
+        boundingRectangle.setSize(sf::Vector2f(shootingSize.x * sprite.getScale().x, shootingSize.y * sprite.getScale().y));
+        detectionRectangle.setSize(sf::Vector2f(detectionSize.x * sprite.getScale().x, detectionSize.y * sprite.getScale().y));
     } else {
         std::cout << "Skeleton image failed to loaded!" << std::endl;
     }
@@ -41,4 +43,3 @@ void Skeleton::Update(float deltaTime) {
 void Skeleton::Draw(sf::RenderWindow& window) {
     Enemy::Draw(window);
 }
-
