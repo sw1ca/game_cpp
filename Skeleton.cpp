@@ -1,13 +1,17 @@
 #include "Skeleton.h"
 #include <iostream>
 
-Skeleton::Skeleton() {
+Skeleton::Skeleton(Player& player) : player(player) {
     health = 100;
 }
 Skeleton::~Skeleton() {}
 
+void Skeleton::setPlayer(Player& player) {
+    this -> player = player;
+}
+
 void Skeleton::Initialize() {
-    Enemy::Initialize();
+    Enemy::Initialize(Player &player);
     shootingSize = sf::Vector2i(64, 64);
     detectionSize = sf::Vector2i(350, 350);
 }
@@ -37,9 +41,22 @@ void Skeleton::Load() {
         std::cout << "Skeleton image failed to loaded!" << std::endl;
     }
 }
-void Skeleton::Update(float deltaTime) {
-    Enemy::Update(deltaTime);
+void Skeleton::Update(float deltaTime, sf::Vector2f playerPosition, const sf::RectangleShape& playerShape, std::vector<Enemy *>& enemies) {
+    Enemy::Update(deltaTime, playerPosition, playerShape,enemies);
+    shootingPlayer(player.getPosition());
 }
 void Skeleton::Draw(sf::RenderWindow& window) {
     Enemy::Draw(window);
 }
+
+//void Skeleton::shootingPlayer(const sf::Vector2f& playerPosition, const sf::RectangleShape& playerShape, float deltaTime) {
+//    if (CheckPlayerDetectionCollision(boundingRectangle) && fireRateTimer >= maxFireRate) {
+//        bullets.push_back(Bullet());
+//        int i = bullets.size() - 1;
+//        bullets[i].Initialize(sprite.getPosition(), const_cast<sf::Vector2f &>(playerPosition), 0.5f);
+//        fireRateTimer = 0;
+//    }
+//    for (size_t i = 0; i < bullets.size(); i++) {
+//        bullets[i].Update(0);
+//    }
+//}

@@ -57,14 +57,15 @@ auto main() -> int {
         frameRate.Update(deltaTime);
         map.Update(deltaTime);
         player.Update(deltaTime, enemies, mousePosition);
-        skeleton.Update(deltaTime);
-        boss.Update(deltaTime);
+        sf::RectangleShape playerShape = player.getBoundingRectanglePosition();
+        skeleton.Update(deltaTime, player.getPosition(), playerShape, enemies);
+        boss.Update(deltaTime, player.getPosition(), playerShape, enemies);
 
-        for(auto* enemy : enemies) {
+        /*for(auto* enemy : enemies) {
             if (enemy -> CheckPlayerDetectionCollision(player.getBoundingRectanglePosition())) {
                 std::cout << "Enemy starts shooting player" << std::endl;
             }
-        }
+        }*/
         //-------------------------------- UPDATE --------------------------------
         //-------------------------------- DRAW --------------------------------
         window.clear(sf::Color::Black);

@@ -1,7 +1,8 @@
 #include "Enemy.h"
+#include "Math.h"
 #include <iostream>
 
-Enemy::Enemy() : health(100) {}
+Enemy::Enemy(Player &player) : health(100), fireRateTimer(0), maxFireRate(150), &player(&player) {}
 Enemy::~Enemy() {}
 
 void Enemy::ChangeHealth(int hp) {
@@ -29,7 +30,7 @@ void Enemy::Load() {
     }
 }
 
-void Enemy::Update(float deltaTime) {
+void Enemy::Update(float deltaTime, const sf::Vector2f playerPosition, const sf::RectangleShape& playerShape, std::vector<Enemy*>& enemies) {
     if(health > 0) {
         boundingRectangle.setPosition(sprite.getPosition());
         healthText.setPosition(sprite.getPosition());
@@ -42,6 +43,14 @@ void Enemy::Update(float deltaTime) {
 
         // Position the detectionRectangle at the center of the boundingRectangle
         detectionRectangle.setPosition(boundingCenter);
+
+        fireRateTimer += deltaTime;
+
+        shootingPlayer(playerPosition, playerShape, deltaTime);
+    }
+
+    for(size_t i = 0; i < bullets.size(); i++) {
+        bullets[i].Update(deltaTime);
     }
 }
 
@@ -51,9 +60,30 @@ void Enemy::Draw(sf::RenderWindow &window) {
         window.draw(boundingRectangle);
         window.draw(detectionRectangle);
         window.draw(healthText);
+
+        for(size_t i = 0; i < bullets.size(); i++) {
+            bullets[i].Draw(window);
+        }
     }
 }
 
 bool Enemy::CheckPlayerDetectionCollision(const sf::RectangleShape &playerShape) {
     return detectionRectangle.getGlobalBounds().intersects(playerShape.getGlobalBounds());
+}
+
+void Enemy::shootingPlayer(const sf::Vector2f& playerPosition, const sf::RectangleShape& playerShape, float deltaTime) {
+    if(CheckPlayerDetectionCollision(playerShape) && fireRateTimer >= maxFireRate) {
+        bullets.push_back(Bullet());
+        int i = bullets.size() - 1;
+        bullets[i].Initialize(sprite.getPosition(), const_cast<sf::Vector2f &>(playerPosition), 0.5f);
+        fireRateTimer = 0;
+    }
+
+    for(size_t i = 0; i < bullets.size(); i++) {
+        bullets[i].Update(0);
+
+        if (Math::didRectCollide(bullets[i].GetGlobalBounds(), playerShape.getGlobalBounds())) {
+            bullets.erase(bullets.begin() + i); // deleting bullets
+        }
+    }
 }

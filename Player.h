@@ -25,8 +25,8 @@ private:
     sf::IntRect goDownTexture;
     sf::IntRect goLeftTexture;
     sf::IntRect goRightTexture;
-public:
     sf::Sprite playerSprite;
+public:
 public:
     Player();
     ~Player();
@@ -36,7 +36,9 @@ public:
     void Update(float deltaTime, std::vector<Enemy*>& enemies, sf::Vector2f& mousePosition);
     void Draw(sf::RenderWindow& window);
     sf::Vector2f getPosition() const;
-    sf::RectangleShape getBoundingRectanglePosition() const;
+    sf::RectangleShape getBoundingRectanglePosition() const {
+        return boundingRectangle;
+    }
 };
 
 
