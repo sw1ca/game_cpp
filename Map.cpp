@@ -133,6 +133,21 @@ bool Map::IsBlocked(int x, int y) {
 void Map::MovePlayer(Player &player, sf::Vector2f direction) {
     sf::Vector2f newPosition = player.getPosition() + direction;
 
+    // Define border positions
+    float leftBorder = 0.0f;
+    float topBorder = 0.0f;
+    float bottomBorder = mapHeight * tileHeight;
+
+    //Check if the new position crosses any of the borders
+    if(newPosition.x < leftBorder) {
+        newPosition.x = leftBorder;
+    }
+    if(newPosition.y < topBorder) {
+        newPosition.y = topBorder;
+    }
+    if(newPosition.y + player.getSize().y > bottomBorder) {
+        newPosition.y = bottomBorder - player.getSize().y;
+    }
     if(!IsBlocked(newPosition.x, newPosition.y)) {
         player.setPosition(newPosition);
     }

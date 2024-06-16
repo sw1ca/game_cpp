@@ -25,8 +25,11 @@ public:
     void ChangeHealth(int hp);
 
     sf::Vector2f getPosition() const;
-    sf::RectangleShape getBoundingRectanglePosition() const;
     void setPosition(sf::Vector2f position);
+    sf::RectangleShape getBoundingRectanglePosition() const;
+    sf::Vector2f getSize() const{
+        return sf::Vector2f(playerSprite.getGlobalBounds().width, playerSprite.getGlobalBounds().height);
+    }
 
     void Move(Map& map, sf::Vector2f direction, float deltaTime);
 private:
