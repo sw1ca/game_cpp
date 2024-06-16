@@ -8,8 +8,36 @@ Map::Map() : tileWidth(16), tileHeight(16), totalTilesX(0), totalTilesY(0), mapW
 Map::~Map() {
     delete[] tiles;
 }
-
+void Map::Load() {
+    LoadTileset("assets/Map/Tilesheet.png");
+    LoadSection(0);
+}
 void Map::Initialize() {}
+void Map::LoadSection(int section) {
+        std::string sectionPath = "assets/Map/map" + std::to_string(section) + ".tmx";
+        std::string fileContent = LoadFileToString(sectionPath.c_str());
+        if (fileContent.empty()) return;
+
+
+        size_t mapStart = fileContent.find("<map");
+        size_t mapEnd = fileContent.find("</map") + 6;
+
+        std::string mapDataContent = fileContent.substr(mapStart, mapEnd - mapStart);
+
+        size_t widthPos = mapDataContent.find("width=\"") + 7;
+        size_t widthEnd = mapDataContent.find("\"", widthPos);
+        mapWidth = std::stoi(mapDataContent.substr(widthPos, widthEnd - widthPos));
+
+        size_t heightPos = mapDataContent.find("height=\"") + 8;
+        size_t heightEnd = mapDataContent.find("\"", heightPos);
+        mapHeight = std::stoi(mapDataContent.substr(heightPos, heightEnd - heightPos));
+
+        size_t dataPos = mapDataContent.find("<data encoding=\"csv\">") + 21;
+        size_t dataEnd = mapDataContent.find("</data>");
+        std::string csvData = mapDataContent.substr(dataPos, dataEnd - dataPos);
+
+        ParseCSVData(csvData, section);
+}
 
 void Map::LoadTileset(const char* tilesetPath) {
     if (tileSheetTexture.loadFromFile(tilesetPath)) { // 224x240
@@ -60,30 +88,43 @@ std::string Map::LoadFileToString(const char* filePath) {
     return buffer.str();
 }
 
-void Map::ParseCSVData(const std::string& csvData) {
+void Map::ParseCSVData(const std::string& csvData, int section) {
     std::stringstream ss(csvData);
     std::string item;
+    std::vector<int> sectionData;
     while (std::getline(ss, item, ',')) {
         int tileID = std::stoi(item) - 1; // TMX index starts at 1, adjust to 0
-        mapData.push_back(tileID >= 0 ? tileID : -1); // Ensure valid tile ID or set to -1
+        sectionData.push_back(tileID >= 0 ? tileID : -1); // Ensure valid tile ID or set to -1
     }
 
-    mapSprites.resize(mapWidth * mapHeight);
+    mapSections[section] = sectionData;
+
+    if(section == 0) {
+        mapData = sectionData;
+    }else {
+        mapData.insert(mapData.end(), sectionData.begin(), sectionData.end());
+    }
+    mapSprites.resize(mapWidth * mapHeight * (currentSection + 1));
     for (int y = 0; y < mapHeight; y++) {
         for (int x = 0; x < mapWidth; x++) {
-            int i = x + y * mapWidth;
-            int tileId = mapData[i];
+            int i = x + y * mapWidth + section * mapWidth * mapHeight;
+            int tileId = mapData[x + y * mapWidth + section * mapWidth * mapHeight];
 
             if (tileId >= 0 && tileId < totalTiles) {
                 mapSprites[i].setTexture(*tiles[tileId].texture);
                 mapSprites[i].setTextureRect(tiles[tileId].rect);
-                mapSprites[i].setPosition(sf::Vector2f(x * tileWidth, y * tileHeight));
+                mapSprites[i].setPosition(sf::Vector2f((x + section * mapWidth) * tileWidth, y * tileHeight));
             }
         }
     }
 }
+void Map::LoadNextSection() {
+    currentSection++;
+    mapSprites.clear();
+    LoadSection(currentSection);
+}
 
-void Map::LoadMapData(const char* mapPath) {
+void Map::LoadMapData(const char* mapPath, int section) {
     std::string fileContent = LoadFileToString(mapPath);
     if (fileContent.empty()) return;
 
@@ -104,12 +145,7 @@ void Map::LoadMapData(const char* mapPath) {
     size_t dataEnd = mapDataContent.find("</data>");
     std::string csvData = mapDataContent.substr(dataPos, dataEnd - dataPos);
 
-    ParseCSVData(csvData);
-}
-
-void Map::Load() {
-    LoadTileset("assets/Map/Tilesheet.png");
-    LoadMapData("assets/Map/map.tmx");
+    ParseCSVData(csvData, section);
 }
 void Map::Update(float deltaTime) {}
 
@@ -137,6 +173,7 @@ void Map::MovePlayer(Player &player, sf::Vector2f direction) {
     float leftBorder = 0.0f;
     float topBorder = 0.0f;
     float bottomBorder = mapHeight * tileHeight;
+    float rightBorder = mapWidth * tileWidth;
 
     //Check if the new position crosses any of the borders
     if(newPosition.x < leftBorder) {
@@ -147,6 +184,11 @@ void Map::MovePlayer(Player &player, sf::Vector2f direction) {
     }
     if(newPosition.y + player.getSize().y > bottomBorder) {
         newPosition.y = bottomBorder - player.getSize().y;
+    }
+    if(newPosition.x + player.getSize().x > rightBorder) {
+        LoadNextSection();
+        newPosition.x = rightBorder - player.getSize().x;
+        newPosition.x = 0;
     }
     if(!IsBlocked(newPosition.x, newPosition.y)) {
         player.setPosition(newPosition);
