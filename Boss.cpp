@@ -8,7 +8,7 @@ Boss::~Boss() {}
 void Boss::Initialize() {
     Enemy::Initialize();
     shootingSize = sf::Vector2i(64, 64);
-    detectionSize = sf::Vector2i(128, 128);
+    detectionSize = sf::Vector2i(300, 300);
 }
 
 void Boss::Load() {

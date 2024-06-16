@@ -36,6 +36,7 @@ private:
     sf::Texture playerTexture;
     sf::Text healthText;
     sf::Font font;
+    sf::Text gameOverText;
     std::vector<Bullet> bullets;
 
     float maxfireRate;

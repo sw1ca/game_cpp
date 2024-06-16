@@ -55,9 +55,12 @@ auto main() -> int {
 
         frameRate.Update(deltaTime);
         map.Update(deltaTime);
-        player.Update(deltaTime, enemies, mousePosition, map);
-        skeleton.Update(deltaTime);
-        boss.Update(deltaTime);
+
+        if(player.health > 0) {
+            player.Update(deltaTime, enemies, mousePosition, map);
+            skeleton.Update(deltaTime);
+            boss.Update(deltaTime);
+        }
 
         //-------------------------------- UPDATE --------------------------------
         //-------------------------------- DRAW --------------------------------

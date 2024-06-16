@@ -56,8 +56,8 @@ void Enemy::Update(float deltaTime) {
 void Enemy::Draw(sf::RenderWindow &window) {
     if(health > 0) {
         window.draw(sprite);
-        //window.draw(boundingRectangle);
-        //window.draw(detectionRectangle);
+        window.draw(boundingRectangle);
+        window.draw(detectionRectangle);
         window.draw(healthText);
 
         for (size_t i = 0; i < bullets.size(); ++i) {

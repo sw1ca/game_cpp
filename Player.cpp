@@ -35,6 +35,11 @@ void Player::Initialize() {
     goRightTexture = sf::IntRect(0, 3 * size.y, size.x, size.y);
     goDownTexture = sf::IntRect(0, 2 * size.y, size.x, size.y);
 
+    gameOverText.setFont(font);
+    gameOverText.setCharacterSize(50);
+    gameOverText.setFillColor(sf::Color::White);
+    gameOverText.setString("GAME OVER!");
+    gameOverText.setPosition(gameOverText.getLocalBounds().width / 2, gameOverText.getLocalBounds().height / 2);
 }
 void Player::Load() {
     if(font.loadFromFile("assets/Fonts/arial.ttf")) {
@@ -128,6 +133,8 @@ void Player::Draw(sf::RenderWindow& window) {
         for (size_t i = 0; i < bullets.size(); ++i) {
             bullets[i].Draw(window);
         }
+    }else{
+        window.draw(gameOverText);
     }
 }
 

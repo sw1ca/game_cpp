@@ -9,7 +9,7 @@ Skeleton::~Skeleton() {}
 void Skeleton::Initialize() {
     Enemy::Initialize();
     shootingSize = sf::Vector2i(64, 64);
-    detectionSize = sf::Vector2i(350, 350);
+    detectionSize = sf::Vector2i(600, 600);
 }
 void Skeleton::Load() {
     if(font.loadFromFile("assets/Fonts/arial.ttf")) {
