@@ -55,7 +55,7 @@ auto main() -> int {
 
         frameRate.Update(deltaTime);
         map.Update(deltaTime);
-        player.Update(deltaTime, enemies, mousePosition);
+        player.Update(deltaTime, enemies, mousePosition, map);
         skeleton.Update(deltaTime);
         boss.Update(deltaTime);
 

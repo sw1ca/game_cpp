@@ -3,6 +3,7 @@
 #include "SFML/Graphics/Texture.hpp"
 #include "SFML/Graphics/Sprite.hpp"
 #include "Tile.h"
+#include "Player.h"
 #include <vector>
 #include <string>
 
@@ -36,4 +37,6 @@ public:
     void Load();
     void Update(float deltaTime);
     void Draw(sf::RenderWindow& window);
+    bool IsBlocked(int x, int y);
+    void MovePlayer(Player& player, sf::Vector2f direction);
 };

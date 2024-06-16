@@ -11,6 +11,18 @@ void Player::ChangeHealth(int hp) {
     health += hp;
     healthText.setString(std::to_string(health));
 }
+void Player::setPosition(sf::Vector2f position) {
+    playerSprite.setPosition(position);
+    boundingRectangle.setPosition(position);
+}
+void Player::Move(Map &map, sf::Vector2f direction, float deltaTime) {
+    sf::Vector2f newPosition = playerSprite.getPosition() + direction * playerSpeed * deltaTime;
+
+    if (!map.IsBlocked(newPosition.x, newPosition.y)) {
+        playerSprite.setPosition(newPosition);
+        boundingRectangle.setPosition(newPosition);
+    }
+}
 void Player::Initialize() {
     boundingRectangle.setFillColor(sf::Color::Transparent);
     boundingRectangle.setOutlineColor(sf::Color::Red);
@@ -49,7 +61,7 @@ void Player::Load() {
         std::cout << "Player image failed to loaded!" << std::endl;
     }
 }
-void Player::Update(float deltaTime, std::vector<Enemy*>& enemies, sf::Vector2f& mousePosition) {
+void Player::Update(float deltaTime, std::vector<Enemy*>& enemies, sf::Vector2f& mousePosition, Map& map) {
     if(health > 0) {
         sf::Vector2f position = playerSprite.getPosition();
         healthText.setPosition(playerSprite.getPosition().x + boundingRectangle.getSize().x / 4, playerSprite.getPosition().y - 10);
@@ -76,7 +88,8 @@ void Player::Update(float deltaTime, std::vector<Enemy*>& enemies, sf::Vector2f&
             playerSprite.setTextureRect(goRightTexture);
         }
 
-        playerSprite.setPosition(position + movement * playerSpeed * deltaTime);
+        Move(map, movement, deltaTime);
+        //playerSprite.setPosition(position + movement * playerSpeed * deltaTime);
 
         boundingRectangle.setPosition(position + movement * playerSpeed * deltaTime);
         // -------------------------------------------------------------------

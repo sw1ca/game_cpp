@@ -27,6 +27,21 @@ void Map::LoadTileset(const char* tilesetPath) {
                 tiles[i].id = i;
                 tiles[i].texture = &tileSheetTexture;
                 tiles[i].rect = sf::IntRect(x * tileWidth, y * tileHeight, tileWidth, tileHeight);
+                // Mark specific tiles as blocked
+                if(i == 41 || i == 55 || i == 54 || i == 53 || i == 52 || i == 51 ||
+                   i == 50 || i == 49 || i == 48 || i == 47 || i == 46 || i == 60 ||
+                   i == 61 || i == 62 || i == 63 || i == 64 || i == 65 || i == 66 || i == 67 ||
+                   i == 68 || i == 69 || i == 70 || i == 82 || i == 83 || i == 84 || i == 118 ||
+                   i == 119 || i == 133 || i == 134 || i == 127 || i == 128 || i == 129 || i == 130 ||
+                   i == 141 || i == 142 || i == 143 || i == 144 || i == 155 || i == 156 ||
+                   i == 157 || i == 158 || i == 168 || i == 169 || i == 170 || i == 171 || i == 172 ||
+                   i == 173 || i == 173 || i == 174 || i == 175 || i == 176 || i == 177 || i == 178 ||
+                   i == 182 || i == 183 || i == 184 || i == 185 || i == 186 || i == 187 || i == 188 ||
+                   i == 189 || i == 190 || i == 191 || i == 192 || i == 196 || i == 197 || i == 198 ||
+                   i == 199 || i == 151 || i == 152 || i == 153 || i == 165 || i == 166 || i == 167 ||
+                   i == 179 || i == 180 || i == 181) {
+                    tiles[i].blocked = true;
+                }
             }
         }
     } else {
@@ -101,5 +116,24 @@ void Map::Update(float deltaTime) {}
 void Map::Draw(sf::RenderWindow &window) {
     for (const auto& sprite : mapSprites) {
         window.draw(sprite);
+    }
+}
+bool Map::IsBlocked(int x, int y) {
+    int tileX = x / tileWidth;
+    int tileY = y / tileHeight;
+    int index = tileX + tileY * mapWidth;
+
+    if(index < 0 || index >= mapWidth * mapHeight) {
+        return true;
+    }
+
+    int tileId = mapData[index];
+    return tiles[tileId].blocked;
+}
+void Map::MovePlayer(Player &player, sf::Vector2f direction) {
+    sf::Vector2f newPosition = player.getPosition() + direction;
+
+    if(!IsBlocked(newPosition.x, newPosition.y)) {
+        player.setPosition(newPosition);
     }
 }

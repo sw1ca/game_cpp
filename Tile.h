@@ -8,4 +8,7 @@ struct Tile {
 
     sf::Texture* texture = nullptr;
     sf::IntRect rect;
+    bool blocked;
+
+    Tile() : id(-1), texture(nullptr), blocked(false) {}
 };

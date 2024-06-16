@@ -7,7 +7,9 @@
 #include "SFML/Graphics/RectangleShape.hpp"
 #include "Bullet.h"
 #include "Enemy.h"
+#include "Map.h"
 
+class Map;
 class Enemy;
 class Player {
 public:
@@ -18,12 +20,15 @@ public:
     sf::Sprite playerSprite;
     void Initialize();
     void Load();
-    void Update(float deltaTime, std::vector<Enemy*>& enemies, sf::Vector2f& mousePosition);
+    void Update(float deltaTime, std::vector<Enemy*>& enemies, sf::Vector2f& mousePosition, Map& map);
     void Draw(sf::RenderWindow& window);
     void ChangeHealth(int hp);
 
     sf::Vector2f getPosition() const;
     sf::RectangleShape getBoundingRectanglePosition() const;
+    void setPosition(sf::Vector2f position);
+
+    void Move(Map& map, sf::Vector2f direction, float deltaTime);
 private:
     sf::Texture playerTexture;
     sf::Text healthText;
