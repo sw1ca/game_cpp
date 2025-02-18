@@ -14,7 +14,7 @@ void Map::Load() {
 }
 void Map::Initialize() {}
 void Map::LoadSection(int section) {
-        std::string sectionPath = "assets/Map/map" + std::to_string(section) + ".tmx";
+        std::string sectionPath = "assets/Map/map0.tmx";
         std::string fileContent = LoadFileToString(sectionPath.c_str());
         if (fileContent.empty()) return;
 
@@ -187,7 +187,7 @@ void Map::MovePlayer(Player &player, sf::Vector2f direction) {
     }
     if(newPosition.x + player.getSize().x > rightBorder) {
         LoadNextSection();
-        newPosition.x = rightBorder - player.getSize().x;
+        /*newPosition.x = rightBorder - player.getSize().x;*/
         newPosition.x = 0;
     }
     if(!IsBlocked(newPosition.x, newPosition.y)) {

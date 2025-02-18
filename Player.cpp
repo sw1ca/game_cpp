@@ -39,7 +39,7 @@ void Player::Initialize() {
     gameOverText.setCharacterSize(50);
     gameOverText.setFillColor(sf::Color::White);
     gameOverText.setString("GAME OVER!");
-    gameOverText.setPosition(gameOverText.getLocalBounds().width / 2, gameOverText.getLocalBounds().height / 2);
+    gameOverText.setPosition(500 - gameOverText.getLocalBounds().width / 2, 330 - gameOverText.getLocalBounds().height / 2);
 }
 void Player::Load() {
     if(font.loadFromFile("assets/Fonts/arial.ttf")) {
@@ -93,8 +93,11 @@ void Player::Update(float deltaTime, std::vector<Enemy*>& enemies, sf::Vector2f&
             playerSprite.setTextureRect(goRightTexture);
         }
 
+        if(movement != sf::Vector2f(0.f, 0.f)) {
+            map.MovePlayer(*this, movement);
+        }
+
         Move(map, movement, deltaTime);
-        //playerSprite.setPosition(position + movement * playerSpeed * deltaTime);
 
         boundingRectangle.setPosition(position + movement * playerSpeed * deltaTime);
         // -------------------------------------------------------------------
