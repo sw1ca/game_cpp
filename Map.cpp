@@ -2,6 +2,7 @@
 #include <fstream>
 #include <sstream>
 #include "Map.h"
+#include <unordered_set>
 
 Map::Map() : tileWidth(16), tileHeight(16), totalTilesX(0), totalTilesY(0), mapWidth(0), mapHeight(0) {}
 
@@ -49,6 +50,14 @@ void Map::LoadTileset(const char* tilesetPath) {
         totalTiles = totalTilesX * totalTilesY;
         tiles = new Tile[totalTiles];
 
+        static const std::unordered_set<int> blockedTiles = {
+            41, 55, 54, 53, 52, 51, 50, 49, 48, 47, 46, 60, 61, 62, 63, 64, 65, 66, 67,
+            68, 69, 70, 82, 83, 84, 118, 119, 133, 134, 127, 128, 129, 130, 141, 142, 143,
+            144, 155, 156, 157, 158, 168, 169, 170, 171, 172, 173, 174, 175, 176, 177, 178,
+            182, 183, 184, 185, 186, 187, 188, 189, 190, 191, 192, 196, 197, 198, 199, 151,
+            152, 153, 165, 166, 167, 179, 180, 181
+        };
+
         for (size_t y = 0; y < totalTilesY; y++) {
             for (size_t x = 0; x < totalTilesX; x++) {
                 int i = x + y * totalTilesX;
@@ -56,20 +65,7 @@ void Map::LoadTileset(const char* tilesetPath) {
                 tiles[i].texture = &tileSheetTexture;
                 tiles[i].rect = sf::IntRect(x * tileWidth, y * tileHeight, tileWidth, tileHeight);
                 // Mark specific tiles as blocked
-                if(i == 41 || i == 55 || i == 54 || i == 53 || i == 52 || i == 51 ||
-                   i == 50 || i == 49 || i == 48 || i == 47 || i == 46 || i == 60 ||
-                   i == 61 || i == 62 || i == 63 || i == 64 || i == 65 || i == 66 || i == 67 ||
-                   i == 68 || i == 69 || i == 70 || i == 82 || i == 83 || i == 84 || i == 118 ||
-                   i == 119 || i == 133 || i == 134 || i == 127 || i == 128 || i == 129 || i == 130 ||
-                   i == 141 || i == 142 || i == 143 || i == 144 || i == 155 || i == 156 ||
-                   i == 157 || i == 158 || i == 168 || i == 169 || i == 170 || i == 171 || i == 172 ||
-                   i == 173 || i == 173 || i == 174 || i == 175 || i == 176 || i == 177 || i == 178 ||
-                   i == 182 || i == 183 || i == 184 || i == 185 || i == 186 || i == 187 || i == 188 ||
-                   i == 189 || i == 190 || i == 191 || i == 192 || i == 196 || i == 197 || i == 198 ||
-                   i == 199 || i == 151 || i == 152 || i == 153 || i == 165 || i == 166 || i == 167 ||
-                   i == 179 || i == 180 || i == 181) {
-                    tiles[i].blocked = true;
-                }
+                tiles[i].blocked = (blockedTiles.find(i) != blockedTiles.end());
             }
         }
     } else {
