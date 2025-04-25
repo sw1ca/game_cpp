@@ -15,7 +15,7 @@ void Map::Load() {
 }
 void Map::Initialize() {}
 void Map::LoadSection(int section) {
-        std::string sectionPath = "assets/Map/map0.tmx";
+        std::string sectionPath = "assets/Map/newMap2.tmx";
         std::string fileContent = LoadFileToString(sectionPath.c_str());
         if (fileContent.empty()) return;
 
@@ -89,8 +89,22 @@ void Map::ParseCSVData(const std::string& csvData) {
     std::string item;
     std::vector<int> sectionData;
     while (std::getline(ss, item, ',')) {
-        int tileID = std::stoi(item) - 1; // TMX index starts at 1, adjust to 0
-        sectionData.push_back(tileID >= 0 ? tileID : -1); // Ensure valid tile ID or set to -1
+        if (!item.empty()) {
+            try {
+                int tileID = std::stoi(item) - 1;
+
+                // Check if the tile ID is within the valid range
+                if (tileID < 0 || tileID >= totalTiles) {
+                    std::cerr << "Out-of-range tileID: " << tileID << std::endl;
+                    sectionData.push_back(-1); // Mark as invalid
+                } else {
+                    sectionData.push_back(tileID);
+                }
+            } catch (const std::exception& e) {
+                std::cerr << "Error in parsing tileID: \"" << item << "\" - " << e.what() << std::endl;
+                sectionData.push_back(-1); // Mark as invalid
+            }
+        }
     }
 
     mapData = sectionData;
@@ -99,12 +113,18 @@ void Map::ParseCSVData(const std::string& csvData) {
     for (int y = 0; y < mapHeight; y++) {
         for (int x = 0; x < mapWidth; x++) {
             int i = x + y * mapWidth;
-            int tileId = mapData[x + y * mapWidth];
+            int tileId = mapData[i];
 
             if (tileId >= 0 && tileId < totalTiles) {
                 mapSprites[i].setTexture(*tiles[tileId].texture);
                 mapSprites[i].setTextureRect(tiles[tileId].rect);
                 mapSprites[i].setPosition(sf::Vector2f(x * tileWidth, y * tileHeight));
+            } else {
+                // Handle invalid tiles (e.g., make them transparent)
+                mapSprites[i].setTexture(tileSheetTexture);
+                mapSprites[i].setTextureRect(sf::IntRect(0, 0, tileWidth, tileHeight));
+                mapSprites[i].setPosition(sf::Vector2f(x * tileWidth, y * tileHeight));
+                mapSprites[i].setColor(sf::Color::Transparent);
             }
         }
     }
