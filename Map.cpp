@@ -37,7 +37,7 @@ void Map::LoadSection(int section) {
         size_t dataEnd = mapDataContent.find("</data>");
         std::string csvData = mapDataContent.substr(dataPos, dataEnd - dataPos);
 
-        ParseCSVData(csvData, section);
+        ParseCSVData(csvData);
 }
 
 void Map::LoadTileset(const char* tilesetPath) {
@@ -84,7 +84,7 @@ std::string Map::LoadFileToString(const char* filePath) {
     return buffer.str();
 }
 
-void Map::ParseCSVData(const std::string& csvData, int section) {
+void Map::ParseCSVData(const std::string& csvData) {
     std::stringstream ss(csvData);
     std::string item;
     std::vector<int> sectionData;
@@ -93,34 +93,24 @@ void Map::ParseCSVData(const std::string& csvData, int section) {
         sectionData.push_back(tileID >= 0 ? tileID : -1); // Ensure valid tile ID or set to -1
     }
 
-    mapSections[section] = sectionData;
+    mapData = sectionData;
 
-    if(section == 0) {
-        mapData = sectionData;
-    }else {
-        mapData.insert(mapData.end(), sectionData.begin(), sectionData.end());
-    }
-    mapSprites.resize(mapWidth * mapHeight * (currentSection + 1));
+    mapSprites.resize(mapWidth * mapHeight);
     for (int y = 0; y < mapHeight; y++) {
         for (int x = 0; x < mapWidth; x++) {
-            int i = x + y * mapWidth + section * mapWidth * mapHeight;
-            int tileId = mapData[x + y * mapWidth + section * mapWidth * mapHeight];
+            int i = x + y * mapWidth;
+            int tileId = mapData[x + y * mapWidth];
 
             if (tileId >= 0 && tileId < totalTiles) {
                 mapSprites[i].setTexture(*tiles[tileId].texture);
                 mapSprites[i].setTextureRect(tiles[tileId].rect);
-                mapSprites[i].setPosition(sf::Vector2f((x + section * mapWidth) * tileWidth, y * tileHeight));
+                mapSprites[i].setPosition(sf::Vector2f(x * tileWidth, y * tileHeight));
             }
         }
     }
 }
-void Map::LoadNextSection() {
-    currentSection++;
-    mapSprites.clear();
-    LoadSection(currentSection);
-}
 
-void Map::LoadMapData(const char* mapPath, int section) {
+void Map::LoadMapData(const char* mapPath) {
     std::string fileContent = LoadFileToString(mapPath);
     if (fileContent.empty()) return;
 
@@ -141,7 +131,7 @@ void Map::LoadMapData(const char* mapPath, int section) {
     size_t dataEnd = mapDataContent.find("</data>");
     std::string csvData = mapDataContent.substr(dataPos, dataEnd - dataPos);
 
-    ParseCSVData(csvData, section);
+    ParseCSVData(csvData);
 }
 void Map::Update(float deltaTime) {}
 
@@ -182,11 +172,10 @@ void Map::MovePlayer(Player &player, sf::Vector2f direction) {
         newPosition.y = bottomBorder - player.getSize().y;
     }
     if(newPosition.x + player.getSize().x > rightBorder) {
-        LoadNextSection();
-        /*newPosition.x = rightBorder - player.getSize().x;*/
-        newPosition.x = 0;
+        newPosition.x = rightBorder - player.getSize().x;
     }
     if(!IsBlocked(newPosition.x, newPosition.y)) {
         player.setPosition(newPosition);
     }
+
 }

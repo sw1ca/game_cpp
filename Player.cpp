@@ -66,7 +66,7 @@ void Player::Load() {
         std::cout << "Player image failed to loaded!" << std::endl;
     }
 }
-void Player::Update(float deltaTime, std::vector<Enemy*>& enemies, sf::Vector2f& mousePosition, Map& map) {
+void Player::Update(float deltaTime, std::vector<Enemy*>& enemies, sf::Vector2f& mousePosition, Map& map, sf::RenderWindow& window) {
     if(health > 0) {
         sf::Vector2f position = playerSprite.getPosition();
         healthText.setPosition(playerSprite.getPosition().x + boundingRectangle.getSize().x / 4, playerSprite.getPosition().y - 10);
@@ -104,9 +104,11 @@ void Player::Update(float deltaTime, std::vector<Enemy*>& enemies, sf::Vector2f&
         fireRateTimer += deltaTime;
 
         if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && fireRateTimer >= maxfireRate) {
+            sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
+            sf::Vector2f adjustedMousePosition = window.mapPixelToCoords(mousePosition);
             bullets.push_back(Bullet());
             int i = bullets.size() - 1;
-            bullets[i].Initialize(playerSprite.getPosition(), mousePosition, 0.5f);
+            bullets[i].Initialize(playerSprite.getPosition(), adjustedMousePosition, 0.5f);
             fireRateTimer = 0;
         }
 

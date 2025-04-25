@@ -14,6 +14,7 @@ auto main() -> int {
     settings.antialiasingLevel = 8;
     sf::RenderWindow window(sf::VideoMode(1280, 720), "RPG Game", sf::Style::Default, settings);
     window.setFramerateLimit(60);
+    sf::View view(sf::FloatRect(0.f, 0.f, window.getSize().x, window.getSize().y));
     //-------------------------------- INITIALIZE --------------------------------
     Player player;
     Skeleton skeleton(player);
@@ -60,13 +61,16 @@ auto main() -> int {
         map.Update(deltaTime);
 
         if(player.health > 0) {
-            player.Update(deltaTime, enemies, mousePosition, map);
+            player.Update(deltaTime, enemies, mousePosition, map, window);
             skeleton.Update(deltaTime);
             boss.Update(deltaTime);
         }
-
+        view.setCenter(player.getPosition());
+        window.setView(view);
         //-------------------------------- UPDATE --------------------------------
         //-------------------------------- DRAW --------------------------------
+        view.setCenter(player.getPosition());
+        window.setView(view);
         window.clear(sf::Color::Black);
         map.Draw(window);
         player.Draw(window);

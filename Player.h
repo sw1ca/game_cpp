@@ -20,7 +20,7 @@ public:
     sf::Sprite playerSprite;
     void Initialize();
     void Load();
-    void Update(float deltaTime, std::vector<Enemy*>& enemies, sf::Vector2f& mousePosition, Map& map);
+    void Update(float deltaTime, std::vector<Enemy*>& enemies, sf::Vector2f& mousePosition, Map& map, sf::RenderWindow& window);
     void Draw(sf::RenderWindow& window);
     void ChangeHealth(int hp);
 
