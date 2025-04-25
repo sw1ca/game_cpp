@@ -13,7 +13,7 @@ auto main() -> int {
     sf::ContextSettings settings;
     settings.antialiasingLevel = 8;
     sf::RenderWindow window(sf::VideoMode(1280, 720), "RPG Game", sf::Style::Default, settings);
-    window.setFramerateLimit(360);
+    window.setFramerateLimit(60);
     //-------------------------------- INITIALIZE --------------------------------
     Player player;
     Skeleton skeleton(player);
