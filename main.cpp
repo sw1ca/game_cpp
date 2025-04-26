@@ -7,6 +7,7 @@
 #include "Map.h"
 #include "Boss.h"
 #include "Enemy.h"
+#include "Camera.h"
 
 auto main() -> int {
     //-------------------------------- INITIALIZE --------------------------------
@@ -14,13 +15,13 @@ auto main() -> int {
     settings.antialiasingLevel = 8;
     sf::RenderWindow window(sf::VideoMode(1280, 720), "RPG Game", sf::Style::Default, settings);
     window.setFramerateLimit(60);
-    sf::View view(sf::FloatRect(0.f, 0.f, window.getSize().x, window.getSize().y));
     //-------------------------------- INITIALIZE --------------------------------
     Player player;
     Skeleton skeleton(player);
     Boss boss(player);
     FrameRate frameRate;
     Map map;
+    Camera camera;
     // -------------------------INITIALIZE------------------------
     player.Initialize();
     skeleton.Initialize();
@@ -34,6 +35,7 @@ auto main() -> int {
     boss.Load();
     frameRate.Load();
     map.Load();
+    camera.initialize(window, map);
     // -------------------------LOAD------------------------
 
     sf::Clock clock;
@@ -65,12 +67,10 @@ auto main() -> int {
             skeleton.Update(deltaTime);
             boss.Update(deltaTime);
         }
-        view.setCenter(player.getPosition());
-        window.setView(view);
+        camera.update(player.getPosition());
+        window.setView(camera.getView());
         //-------------------------------- UPDATE --------------------------------
         //-------------------------------- DRAW --------------------------------
-        view.setCenter(player.getPosition());
-        window.setView(view);
         window.clear(sf::Color::Black);
         map.Draw(window);
         player.Draw(window);

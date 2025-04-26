@@ -40,4 +40,8 @@ public:
     bool IsBlocked(int x, int y);
     void MovePlayer(Player& player, sf::Vector2f direction);
     void LoadSection(int section);
+    int getMapWidth() const { return mapWidth; }
+    int getMapHeight() const { return mapHeight; }
+    int getTileWidth() const { return tileWidth; }
+    int getTileHeight() const { return tileHeight; }
 };
