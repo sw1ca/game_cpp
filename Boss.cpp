@@ -2,7 +2,7 @@
 #include <iostream>
 
 Boss::Boss(Player& player) : Enemy(player) {
-    health = 500;
+    health = 20;
 }
 Boss::~Boss() {}
 void Boss::Initialize() {
@@ -23,7 +23,7 @@ void Boss::Load() {
     if(texture.loadFromFile("assets/images/Boss.png")){
         std::cout << "Boss Images Loaded!" << std::endl;
         sprite.setTexture(texture);
-        sprite.setPosition(sf::Vector2f(1080, 40));
+        sprite.setPosition(sf::Vector2f(1525, 705));
 
         int XIndex = 3;
         int YIndex = 0;

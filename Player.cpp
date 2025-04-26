@@ -58,7 +58,7 @@ void Player::Load() {
         int YIndex = 3;
 
         playerSprite.setTextureRect(sf::IntRect(XIndex * size.x, YIndex * size.y, size.x, size.y));
-        playerSprite.setPosition(sf::Vector2f(0, 475));
+        playerSprite.setPosition(sf::Vector2f(10, 2000));
 
         playerSprite.scale(sf::Vector2f(0.8, 0.8));
         boundingRectangle.setSize(sf::Vector2f(size.x * playerSprite.getScale().x, size.y * playerSprite.getScale().y));

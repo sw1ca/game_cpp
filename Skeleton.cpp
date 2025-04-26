@@ -24,7 +24,7 @@ void Skeleton::Load() {
     if(texture.loadFromFile("assets/images/spritesheet.png")){
         std::cout << "Skeleton Images Loaded!" << std::endl;
         sprite.setTexture(texture);
-        sprite.setPosition(sf::Vector2f(600, 400));
+        sprite.setPosition(sf::Vector2f(300, 1500));
 
         int XIndex = 0;
         int YIndex = 2;
