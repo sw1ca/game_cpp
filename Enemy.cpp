@@ -9,7 +9,7 @@ Enemy::Enemy(Player& player, const EnemyConfig& config) :
     health(config.health),
     maxFireRate(250),
     fireRateTimer(0),
-    bulletDamage(config.bulletDamage) {}
+    damage(config.damage) {}
 
 Enemy::~Enemy() {}
 
@@ -109,7 +109,7 @@ void Enemy::shootingPlayer(float deltaTime) {
 
         if (player->health > 0) {
             if (Math::didRectCollide(bullets[i].GetGlobalBounds(), playerShape.getGlobalBounds())) {
-                player->ChangeHealth(-bulletDamage);
+                player->ChangeHealth(-damage);
                 bullets.erase(bullets.begin() + i); // deleting bullets
             }
         }

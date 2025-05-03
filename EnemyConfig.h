@@ -8,7 +8,7 @@ struct EnemyConfig {
     sf::Vector2f bulletSize;
     float scale;
     int health;
-    int bulletDamage;
+    int damage;
     sf::Color bulletColor;
     float bulletSpeed;
 };

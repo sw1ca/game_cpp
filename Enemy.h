@@ -41,5 +41,5 @@ protected:
 
     float maxFireRate;
     float fireRateTimer;
-    int bulletDamage;
+    int damage;
 };
