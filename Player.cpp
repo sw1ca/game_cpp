@@ -4,7 +4,7 @@
 #include "SFML/Window/Mouse.hpp"
 #include <iostream>
 
-Player::Player() : health(200), playerSpeed(0.8f), maxfireRate(150), fireRateTimer(0) {}
+Player::Player() : health(200), playerSpeed(2.f), maxfireRate(150), fireRateTimer(0) {}
 Player::~Player() {}
 
 void Player::ChangeHealth(int hp) {
@@ -39,7 +39,6 @@ void Player::Initialize() {
     gameOverText.setCharacterSize(50);
     gameOverText.setFillColor(sf::Color::White);
     gameOverText.setString("GAME OVER!");
-    gameOverText.setPosition(500 - gameOverText.getLocalBounds().width / 2, 330 - gameOverText.getLocalBounds().height / 2);
 }
 void Player::Load() {
     if(font.loadFromFile("assets/Fonts/arial.ttf")) {
@@ -115,7 +114,7 @@ void Player::Update(float deltaTime, std::vector<Enemy*>& enemies, sf::Vector2f&
         for (size_t i = 0; i < bullets.size(); i++) {
             bullets[i].Update(deltaTime);
 
-            for (Enemy *enemy: enemies) {
+            for (Enemy *enemy : enemies) {
                 if (enemy->health > 0) {
                     if (Math::didRectCollide(bullets[i].GetGlobalBounds(), enemy->GetGlobalBounds())) {
                         enemy->ChangeHealth(-10);
@@ -139,7 +138,16 @@ void Player::Draw(sf::RenderWindow& window) {
             bullets[i].Draw(window);
         }
     }else{
+        sf::View currentView = window.getView();
+        window.setView(window.getDefaultView());
+        sf::Vector2u windowSize = window.getSize();
+        gameOverText.setPosition(
+                windowSize.x / 2.f - gameOverText.getGlobalBounds().width / 2.f,
+                windowSize.y / 2.f - gameOverText.getGlobalBounds().height / 2.f
+        );
+
         window.draw(gameOverText);
+        window.setView(currentView);
     }
 }
 
