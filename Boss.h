@@ -17,7 +17,7 @@ private:
                 300,
                 30,
                 sf::Color::Red,
-                0.1f
+                0.2f
         };
     }
 };

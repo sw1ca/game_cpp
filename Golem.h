@@ -18,7 +18,7 @@ private:
                 500,
                 50,
                 sf::Color::Blue,
-                0.1f
+                0.2f
         };
     }
 };
