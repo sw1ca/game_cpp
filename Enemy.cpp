@@ -54,8 +54,12 @@ void Enemy::Update(float deltaTime) {
     if(health > 0) {
         boundingRectangle.setPosition(sprite.getPosition());
         float textWidth = healthText.getLocalBounds().width;
-        sf::Vector2f boundingSize = boundingRectangle.getSize();
-        healthText.setPosition(sprite.getPosition().x + (boundingSize.x / 2) - (textWidth / 2), sprite.getPosition().y - 10);
+        float textHeight = healthText.getLocalBounds().height;
+        float spriteWidth = sprite.getGlobalBounds().width;
+        healthText.setPosition(
+                sprite.getPosition().x + (spriteWidth / 2.f) - (textWidth / 2.f),
+                sprite.getPosition().y - textHeight - 5.f
+                );
 
         // Calculate the center of the boundingRectangle
         sf::Vector2f boundingCenter = sprite.getPosition() + (boundingRectangle.getSize() / 2.0f);

@@ -10,13 +10,13 @@ private:
     static EnemyConfig CreateConfig() {
         return {
                 "assets/images/Golem.png",
-                sf::Vector2f(2085, 1300),
+                sf::Vector2f(2080, 1295),
                 sf::Vector2f(64.f, 64.f),
                 sf::Vector2f(600.f, 600.f),
                 sf::Vector2f(20.f, 20.f),
-                1.8f,
+                2.f,
                 500,
-                50,
+                30,
                 sf::Color::Blue,
                 0.2f
         };
