@@ -16,7 +16,8 @@ private:
                 sf::Vector2f(10.f, 10.f),
                 0.8f,
                 50,
-                10
+                10,
+                sf::Color::White
         };
     }
 };

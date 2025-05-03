@@ -9,6 +9,7 @@ struct EnemyConfig {
     float scale;
     int health;
     int bulletDamage;
+    sf::Color bulletColor;
 };
 
 

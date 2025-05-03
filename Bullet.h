@@ -17,5 +17,6 @@ public:
     void Draw(sf::RenderWindow& window);
     void setBulletSize(const float radius);
     sf::FloatRect GetGlobalBounds() const { return circleShape.getGlobalBounds(); }
+    void setBulletColor(const sf::Color& color);
 };
 

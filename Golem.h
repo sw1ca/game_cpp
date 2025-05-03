@@ -16,7 +16,8 @@ private:
                 sf::Vector2f(30.f, 30.f),
                 1.8f,
                 20,
-                50
+                50,
+                sf::Color::Blue
         };
     }
 };

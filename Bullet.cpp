@@ -21,4 +21,7 @@ void Bullet::Draw(sf::RenderWindow &window) {
 void Bullet::setBulletSize(const float radius) {
     circleShape.setRadius(radius);
 }
+void Bullet::setBulletColor(const sf::Color &color) {
+    circleShape.setFillColor(color);
+}
 
