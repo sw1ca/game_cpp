@@ -17,7 +17,8 @@ private:
                 0.8f,
                 50,
                 10,
-                sf::Color::White
+                sf::Color::White,
+                0.2f
         };
     }
 };

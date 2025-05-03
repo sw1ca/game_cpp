@@ -10,6 +10,7 @@ struct EnemyConfig {
     int health;
     int bulletDamage;
     sf::Color bulletColor;
+    float bulletSpeed;
 };
 
 

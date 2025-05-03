@@ -13,11 +13,12 @@ private:
                 sf::Vector2f(2085, 1300),
                 sf::Vector2f(64.f, 64.f),
                 sf::Vector2f(600.f, 600.f),
-                sf::Vector2f(30.f, 30.f),
+                sf::Vector2f(20.f, 20.f),
                 1.8f,
-                20,
+                500,
                 50,
-                sf::Color::Blue
+                sf::Color::Blue,
+                0.1f
         };
     }
 };

@@ -94,7 +94,7 @@ void Enemy::shootingPlayer(float deltaTime) {
     if (CheckPlayerDetectionCollision(playerShape) && fireRateTimer >= maxFireRate) {
         bullets.push_back(Bullet());
         int i = bullets.size() - 1;
-        bullets[i].Initialize(sprite.getPosition(), const_cast<sf::Vector2f &>(playerPosition), 0.2f);
+        bullets[i].Initialize(sprite.getPosition(), const_cast<sf::Vector2f &>(playerPosition), config.bulletSpeed);
         bullets[i].setBulletSize(config.bulletSize.x / 2.0f);
         bullets[i].setBulletColor(config.bulletColor);
         fireRateTimer = 0;
