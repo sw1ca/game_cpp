@@ -8,17 +8,19 @@
 #include "Boss.h"
 #include "Enemy.h"
 #include "Camera.h"
+#include "Golem.h"
 
 auto main() -> int {
     //-------------------------------- INITIALIZE --------------------------------
     sf::ContextSettings settings;
     settings.antialiasingLevel = 8;
-    sf::RenderWindow window(sf::VideoMode(1280, 720), "RPG Game", sf::Style::Default, settings);
+    sf::RenderWindow window(sf::VideoMode(1920, 1080), "RPG Game", sf::Style::Default, settings);
     window.setFramerateLimit(60);
     //-------------------------------- INITIALIZE --------------------------------
     Player player;
     Skeleton skeleton(player);
     Boss boss(player);
+    Golem golem(player);
     FrameRate frameRate;
     Map map;
     Camera camera;
@@ -26,6 +28,7 @@ auto main() -> int {
     player.Initialize();
     skeleton.Initialize();
     boss.Initialize();
+    golem.Initialize();
     frameRate.Initialize();
     map.Initialize();
     // -------------------------INITIALIZE------------------------
@@ -33,13 +36,14 @@ auto main() -> int {
     player.Load();
     skeleton.Load();
     boss.Load();
+    golem.Load();
     frameRate.Load();
     map.Load();
     camera.initialize(window, map);
     // -------------------------LOAD------------------------
 
     sf::Clock clock;
-    std::vector<Enemy*> enemies = { &skeleton, &boss };
+    std::vector<Enemy*> enemies = { &skeleton, &boss, &golem };
 
     // Load the game state
 //    GameStateManager::LoadGame(player, enemies);
@@ -66,6 +70,7 @@ auto main() -> int {
             player.Update(deltaTime, enemies, mousePosition, map, window);
             skeleton.Update(deltaTime);
             boss.Update(deltaTime);
+            golem.Update(deltaTime);
         }
         camera.update(player.getPosition());
         window.setView(camera.getView());
@@ -76,6 +81,7 @@ auto main() -> int {
         player.Draw(window);
         skeleton.Draw(window);
         boss.Draw(window);
+        golem.Draw(window);
         frameRate.Draw(window);
         window.display();
         //-------------------------------- DRAW --------------------------------

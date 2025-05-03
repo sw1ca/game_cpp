@@ -42,6 +42,10 @@ add_executable(2324L_25_s31225_SR main.cpp
         GameStateManager.h
         Camera.h
         Camera.cpp
+        Golem.h
+        Golem.cpp
+        EnemyConfig.h
+        EnemyConfig.cpp
 )
 add_custom_command(
         TARGET 2324L_25_s31225_SR POST_BUILD

@@ -3,7 +3,14 @@
 #include "Enemy.h"
 #include "Player.h"
 
-Enemy::Enemy(Player& player) : health(100), player(&player), maxFireRate(250), fireRateTimer(0) {}
+Enemy::Enemy(Player& player, const EnemyConfig& config) :
+    player(&player),
+    config(config),
+    health(config.health),
+    maxFireRate(250),
+    fireRateTimer(0),
+    bulletDamage(config.bulletDamage) {}
+
 Enemy::~Enemy() {}
 
 void Enemy::ChangeHealth(int hp) {
@@ -12,10 +19,21 @@ void Enemy::ChangeHealth(int hp) {
 }
 
 void Enemy::Initialize() {
+    if (!texture.loadFromFile(config.texturePath)) {
+        std::cout << "Failed to load texture: " << config.texturePath << std::endl;
+        return;
+    }
+
+    sprite.setTexture(texture);
+    sprite.setPosition(config.position);
+    sprite.setScale(config.scale, config.scale);
+
+    boundingRectangle.setSize(config.shootingSize);
     boundingRectangle.setFillColor(sf::Color::Transparent);
     boundingRectangle.setOutlineColor(sf::Color::Blue);
     boundingRectangle.setOutlineThickness(1);
 
+    detectionRectangle.setSize(config.detectionSize);
     detectionRectangle.setFillColor(sf::Color::Transparent);
     detectionRectangle.setOutlineColor(sf::Color::Red);
     detectionRectangle.setOutlineThickness(1);
@@ -77,6 +95,7 @@ void Enemy::shootingPlayer(float deltaTime) {
         bullets.push_back(Bullet());
         int i = bullets.size() - 1;
         bullets[i].Initialize(sprite.getPosition(), const_cast<sf::Vector2f &>(playerPosition), 0.2f);
+        bullets[i].setBulletSize(config.bulletSize.x / 2.0f);
         fireRateTimer = 0;
     }
 
@@ -85,7 +104,7 @@ void Enemy::shootingPlayer(float deltaTime) {
 
         if (player->health > 0) {
             if (Math::didRectCollide(bullets[i].GetGlobalBounds(), playerShape.getGlobalBounds())) {
-                player->ChangeHealth(-10);
+                player->ChangeHealth(-bulletDamage);
                 bullets.erase(bullets.begin() + i); // deleting bullets
             }
         }
