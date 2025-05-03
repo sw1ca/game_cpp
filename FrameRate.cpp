@@ -28,5 +28,8 @@ void FrameRate::Update(double deltaTime) {
     }
 }
 void FrameRate::Draw(sf::RenderWindow &window) {
+    sf::View currentView = window.getView();
+    window.setView(window.getDefaultView());
     window.draw(frameRateText);
+    window.setView(currentView);
 }
