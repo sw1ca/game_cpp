@@ -46,6 +46,8 @@ add_executable(2324L_25_s31225_SR main.cpp
         Golem.cpp
         EnemyConfig.h
         EnemyConfig.cpp
+        Goblin.h
+        Goblin.cpp
 )
 add_custom_command(
         TARGET 2324L_25_s31225_SR POST_BUILD
