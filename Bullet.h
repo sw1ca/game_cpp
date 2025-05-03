@@ -15,7 +15,7 @@ public:
     void Initialize(const sf::Vector2f& position, sf::Vector2f& target, float speed);
     void Update(float deltaTime);
     void Draw(sf::RenderWindow& window);
-
-    inline const sf::Rect<float> GetGlobalBounds() const { return circleShape.getGlobalBounds(); }
+    void setBulletSize(const float radius);
+    sf::FloatRect GetGlobalBounds() const { return circleShape.getGlobalBounds(); }
 };
 
