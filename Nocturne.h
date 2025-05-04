@@ -15,7 +15,7 @@ private:
                 sf::Vector2f(600.f, 600.f),
                 sf::Vector2f(20.f, 20.f),
                 1.5f,
-                300,
+                500,
                 30,
                 sf::Color::Green,
                 0.2f

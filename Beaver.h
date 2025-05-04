@@ -20,7 +20,7 @@ private:
             sf::Vector2f(600.f, 600.f),
             sf::Vector2f(10.f, 10.f),
             1.2f,
-            50,
+            150,
             25,
             sf::Color::White,
             0.0f
