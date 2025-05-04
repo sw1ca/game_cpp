@@ -9,6 +9,8 @@
 #include "Enemy.h"
 #include "Camera.h"
 #include "Golem.h"
+#include "Goblin.h"
+#include "Witch.h"
 
 auto main() -> int {
     //-------------------------------- INITIALIZE --------------------------------
@@ -21,6 +23,8 @@ auto main() -> int {
     Skeleton skeleton(player);
     Boss boss(player);
     Golem golem(player);
+    Goblin goblin(player);
+    Witch witch(player);
     FrameRate frameRate;
     Map map;
     Camera camera;
@@ -29,6 +33,8 @@ auto main() -> int {
     skeleton.Initialize();
     boss.Initialize();
     golem.Initialize();
+    goblin.Initialize();
+    witch.Initialize();
     frameRate.Initialize();
     map.Initialize();
     // -------------------------INITIALIZE------------------------
@@ -37,13 +43,15 @@ auto main() -> int {
     skeleton.Load();
     boss.Load();
     golem.Load();
+    goblin.Load();
+    witch.Load();
     frameRate.Load();
     map.Load();
     camera.initialize(window, map);
     // -------------------------LOAD------------------------
 
     sf::Clock clock;
-    std::vector<Enemy*> enemies = { &skeleton, &boss, &golem };
+    std::vector<Enemy*> enemies = { &skeleton, &boss, &golem, &goblin, &witch };
 
     // Load the game state
 //    GameStateManager::LoadGame(player, enemies);
@@ -71,6 +79,8 @@ auto main() -> int {
             skeleton.Update(deltaTime);
             boss.Update(deltaTime);
             golem.Update(deltaTime);
+            goblin.Update(deltaTime);
+            witch.Update(deltaTime);
         }
         camera.update(player.getPosition());
         window.setView(camera.getView());
@@ -82,6 +92,8 @@ auto main() -> int {
         skeleton.Draw(window);
         boss.Draw(window);
         golem.Draw(window);
+        goblin.Draw(window);
+        witch.Draw(window);
         frameRate.Draw(window);
         window.display();
         //-------------------------------- DRAW --------------------------------
