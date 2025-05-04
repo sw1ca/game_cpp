@@ -49,6 +49,8 @@ add_executable(2324L_25_s31225_SR main.cpp
         Goblin.h
         Goblin.cpp
         Witch.h
+        Beaver.h
+        Beaver.cpp
 )
 add_custom_command(
         TARGET 2324L_25_s31225_SR POST_BUILD
