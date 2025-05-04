@@ -4,7 +4,7 @@
 #include "SFML/Window/Mouse.hpp"
 #include <iostream>
 
-Player::Player() : health(200), playerSpeed(2.f), maxfireRate(150), fireRateTimer(0) {}
+Player::Player() : health(200), playerSpeed(1.f), maxfireRate(150), fireRateTimer(0) {}
 Player::~Player() {}
 
 void Player::ChangeHealth(int hp) {
@@ -65,7 +65,7 @@ void Player::Load() {
         std::cout << "Player image failed to loaded!" << std::endl;
     }
 }
-void Player::Update(float deltaTime, std::vector<Enemy*>& enemies, sf::Vector2f& mousePosition, Map& map, sf::RenderWindow& window) {
+void Player::Update(float deltaTime, std::vector<Enemy*>& enemies, sf::Vector2f& mousePosition, Map& map, sf::RenderWindow& window, std::vector<HealthPack>& healthPack) {
     if(health > 0) {
         sf::Vector2f position = playerSprite.getPosition();
         healthText.setPosition(playerSprite.getPosition().x + boundingRectangle.getSize().x / 4, playerSprite.getPosition().y - 10);
@@ -123,6 +123,7 @@ void Player::Update(float deltaTime, std::vector<Enemy*>& enemies, sf::Vector2f&
                 }
             }
         }
+        checkHealthPackCollision(healthPack);
     }
     // -------------------------------------------------------------------
 
@@ -157,4 +158,15 @@ sf::Vector2f Player::getPosition() const {
 
 sf::RectangleShape Player::getBoundingRectanglePosition() const {
     return boundingRectangle;
+}
+void Player::checkHealthPackCollision(std::vector<HealthPack> &healthPacks) {
+    for (auto &healthPack: healthPacks) {
+        if (healthPack.isActive() && health < 200) {
+            if (boundingRectangle.getGlobalBounds().intersects(healthPack.getGlobalBounds())) {
+                health = std::min(health + HealthPack::getHealAmount(), 200.f);
+                healthText.setString(std::to_string(health));
+                healthPack.setActive(false);
+            }
+        }
+    }
 }

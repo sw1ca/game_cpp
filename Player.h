@@ -8,6 +8,7 @@
 #include "Bullet.h"
 #include "Enemy.h"
 #include "Map.h"
+#include "HealthPack.h"
 
 class Map;
 class Enemy;
@@ -20,7 +21,7 @@ public:
     sf::Sprite playerSprite;
     void Initialize();
     void Load();
-    void Update(float deltaTime, std::vector<Enemy*>& enemies, sf::Vector2f& mousePosition, Map& map, sf::RenderWindow& window);
+    void Update(float deltaTime, std::vector<Enemy*>& enemies, sf::Vector2f& mousePosition, Map& map, sf::RenderWindow& window, std::vector<HealthPack>& healthPacks);
     void Draw(sf::RenderWindow& window);
     void ChangeHealth(int hp);
 
@@ -32,6 +33,7 @@ public:
     }
 
     void Move(Map& map, sf::Vector2f direction, float deltaTime);
+    void checkHealthPackCollision(std::vector<HealthPack>& healthPacks);
 private:
     sf::Texture playerTexture;
     sf::Text healthText;

@@ -19,7 +19,7 @@ auto main() -> int {
     //-------------------------------- INITIALIZE --------------------------------
     sf::ContextSettings settings;
     settings.antialiasingLevel = 8;
-    sf::RenderWindow window(sf::VideoMode(1920, 1080), "RPG Game", sf::Style::Default, settings);
+    sf::RenderWindow window(sf::VideoMode(1280, 720), "RPG Game", sf::Style::Default, settings);
     window.setFramerateLimit(60);
     //-------------------------------- INITIALIZE --------------------------------
     Player player;
@@ -31,6 +31,19 @@ auto main() -> int {
     Beaver beaver(player);
     Nocturne nocturne(player);
     Mage mage(player);
+    std::vector<HealthPack> healthPacks;
+    HealthPack healthPack1;
+    HealthPack healthPack2;
+    HealthPack healthPack3;
+    healthPack1.Load();
+    healthPack2.Load();
+    healthPack3.Load();
+    healthPack1.Initialize(sf::Vector2f(1345, 1550));
+    healthPack2.Initialize(sf::Vector2f(900, 755));
+    healthPack3.Initialize(sf::Vector2f(2880, 1055));
+    healthPacks.push_back(healthPack1);
+    healthPacks.push_back(healthPack2);
+    healthPacks.push_back(healthPack3);
     FrameRate frameRate;
     Map map;
     Camera camera;
@@ -87,7 +100,7 @@ auto main() -> int {
         map.Update(deltaTime);
 
         if(player.health > 0) {
-            player.Update(deltaTime, enemies, mousePosition, map, window);
+            player.Update(deltaTime, enemies, mousePosition, map, window, healthPacks);
             skeleton.Update(deltaTime);
             boss.Update(deltaTime);
             golem.Update(deltaTime);
@@ -112,6 +125,11 @@ auto main() -> int {
         beaver.Draw(window);
         nocturne.Draw(window);
         mage.Draw(window);
+        for (auto& pack : healthPacks) {
+            if (pack.isActive()) {
+                pack.Draw(window);
+            }
+        }
         frameRate.Draw(window);
         window.display();
         //-------------------------------- DRAW --------------------------------
