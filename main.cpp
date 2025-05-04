@@ -2,16 +2,17 @@
 #include <SFML/Graphics.hpp>
 
 #include "Player.h"
-#include "Skeleton.h"
-#include "FrameRate.h"
 #include "Map.h"
-#include "Boss.h"
 #include "Enemy.h"
-#include "Camera.h"
+#include "Skeleton.h"
+#include "Boss.h"
 #include "Golem.h"
 #include "Goblin.h"
 #include "Witch.h"
 #include "Beaver.h"
+#include "Nocturne.h"
+#include "FrameRate.h"
+#include "Camera.h"
 
 auto main() -> int {
     //-------------------------------- INITIALIZE --------------------------------
@@ -27,6 +28,7 @@ auto main() -> int {
     Goblin goblin(player);
     Witch witch(player);
     Beaver beaver(player);
+    Nocturne nocturne(player);
     FrameRate frameRate;
     Map map;
     Camera camera;
@@ -38,6 +40,7 @@ auto main() -> int {
     goblin.Initialize();
     witch.Initialize();
     beaver.Initialize();
+    nocturne.Initialize();
     frameRate.Initialize();
     map.Initialize();
     // -------------------------INITIALIZE------------------------
@@ -49,13 +52,14 @@ auto main() -> int {
     goblin.Load();
     witch.Load();
     beaver.Load();
+    nocturne.Load();
     frameRate.Load();
     map.Load();
     camera.initialize(window, map);
     // -------------------------LOAD------------------------
 
     sf::Clock clock;
-    std::vector<Enemy*> enemies = { &skeleton, &boss, &golem, &goblin, &witch, &beaver };
+    std::vector<Enemy*> enemies = { &skeleton, &boss, &golem, &goblin, &witch, &beaver, &nocturne };
 
     // Load the game state
 //    GameStateManager::LoadGame(player, enemies);
@@ -86,6 +90,7 @@ auto main() -> int {
             goblin.Update(deltaTime);
             witch.Update(deltaTime);
             beaver.Update(deltaTime);
+            nocturne.Update(deltaTime);
         }
         camera.update(player.getPosition());
         window.setView(camera.getView());
@@ -100,6 +105,7 @@ auto main() -> int {
         goblin.Draw(window);
         witch.Draw(window);
         beaver.Draw(window);
+        nocturne.Draw(window);
         frameRate.Draw(window);
         window.display();
         //-------------------------------- DRAW --------------------------------
