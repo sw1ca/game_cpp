@@ -52,6 +52,7 @@ add_executable(2324L_25_s31225_SR main.cpp
         Beaver.h
         Beaver.cpp
         Nocturne.h
+        Mage.h
 )
 add_custom_command(
         TARGET 2324L_25_s31225_SR POST_BUILD

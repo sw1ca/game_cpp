@@ -11,6 +11,7 @@
 #include "Witch.h"
 #include "Beaver.h"
 #include "Nocturne.h"
+#include "Mage.h"
 #include "FrameRate.h"
 #include "Camera.h"
 
@@ -29,6 +30,7 @@ auto main() -> int {
     Witch witch(player);
     Beaver beaver(player);
     Nocturne nocturne(player);
+    Mage mage(player);
     FrameRate frameRate;
     Map map;
     Camera camera;
@@ -41,6 +43,7 @@ auto main() -> int {
     witch.Initialize();
     beaver.Initialize();
     nocturne.Initialize();
+    mage.Initialize();
     frameRate.Initialize();
     map.Initialize();
     // -------------------------INITIALIZE------------------------
@@ -53,13 +56,14 @@ auto main() -> int {
     witch.Load();
     beaver.Load();
     nocturne.Load();
+    mage.Load();
     frameRate.Load();
     map.Load();
     camera.initialize(window, map);
     // -------------------------LOAD------------------------
 
     sf::Clock clock;
-    std::vector<Enemy*> enemies = { &skeleton, &boss, &golem, &goblin, &witch, &beaver, &nocturne };
+    std::vector<Enemy*> enemies = { &skeleton, &boss, &golem, &goblin, &witch, &beaver, &nocturne, &mage };
 
     // Load the game state
 //    GameStateManager::LoadGame(player, enemies);
@@ -91,6 +95,7 @@ auto main() -> int {
             witch.Update(deltaTime);
             beaver.Update(deltaTime);
             nocturne.Update(deltaTime);
+            mage.Update(deltaTime);
         }
         camera.update(player.getPosition());
         window.setView(camera.getView());
@@ -106,6 +111,7 @@ auto main() -> int {
         witch.Draw(window);
         beaver.Draw(window);
         nocturne.Draw(window);
+        mage.Draw(window);
         frameRate.Draw(window);
         window.display();
         //-------------------------------- DRAW --------------------------------
