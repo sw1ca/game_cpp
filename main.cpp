@@ -78,8 +78,6 @@ auto main() -> int {
     sf::Clock clock;
     std::vector<Enemy*> enemies = { &skeleton, &boss, &golem, &goblin, &witch, &beaver, &nocturne, &mage };
 
-    // Load the game state
-//    GameStateManager::LoadGame(player, enemies);
 
     //main game loop
     while (window.isOpen())

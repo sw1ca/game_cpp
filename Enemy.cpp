@@ -114,9 +114,4 @@ void Enemy::shootingPlayer(float deltaTime) {
             }
         }
     }
-
-    /*if(health <= 0) {
-        std::vector<Enemy*> enemies = { this };
-        GameStateManager::SaveGame(*player, enemies);
-    }*/
 }
