@@ -36,13 +36,10 @@ add_executable(2324L_25_s31225_SR main.cpp
         Enemy.cpp
         Enemy.h
         Boss.h
-        GameStateManager.cpp
-        GameStateManager.h
         Camera.h
         Camera.cpp
         Golem.h
         EnemyConfig.h
-        EnemyConfig.cpp
         Goblin.h
         Goblin.cpp
         Witch.h
