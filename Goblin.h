@@ -1,4 +1,5 @@
 #include "Enemy.h"
+#pragma once
 
 class Goblin : public Enemy {
 public:

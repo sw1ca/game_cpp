@@ -2,6 +2,7 @@
 #include "SFML/Graphics/View.hpp"
 #include "SFML/Graphics/RenderWindow.hpp"
 #include "Map.h"
+#pragma once
 
 class Camera {
 private:

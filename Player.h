@@ -9,6 +9,7 @@
 #include "Enemy.h"
 #include "Map.h"
 #include "HealthPack.h"
+#pragma once
 
 class Map;
 class Enemy;

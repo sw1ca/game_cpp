@@ -1,5 +1,6 @@
 #include <iostream>
 #include "SFML/Graphics.hpp"
+#pragma once
 
 class HealthPack {
 public:

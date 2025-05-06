@@ -1,4 +1,5 @@
 #include "SFML/Graphics.hpp"
+#pragma once
 
 struct EnemyConfig {
     std::string texturePath;

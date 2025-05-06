@@ -5,7 +5,6 @@
 #include "SFML/Graphics/Text.hpp"
 #include "SFML/Graphics/Sprite.hpp"
 #include "Bullet.h"
-#include "GameStateManager.h"
 #include "EnemyConfig.h"
 
 class Player;

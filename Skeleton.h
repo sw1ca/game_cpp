@@ -1,4 +1,5 @@
 #include "Enemy.h"
+#pragma once
 
 class Skeleton : public Enemy {
 public:

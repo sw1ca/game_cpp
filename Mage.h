@@ -1,5 +1,6 @@
 #include "Enemy.h"
 #include "SFML/Graphics/RenderWindow.hpp"
+#pragma once
 
 class Mage : public Enemy {
 public:

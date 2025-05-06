@@ -1,5 +1,6 @@
 #include "Enemy.h"
 #include "SFML/Graphics.hpp"
+#pragma once
 
 class Nocturne : public Enemy {
 public:
