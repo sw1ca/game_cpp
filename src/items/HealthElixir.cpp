@@ -1,8 +1,8 @@
-#include "HealthPack.h"
+#include "../../include/items/HealthElixir.h"
 
-HealthPack::HealthPack() : Elixir(HEAL_AMOUNT) {}
+HealthElixir::HealthElixir() : Elixir(HEAL_AMOUNT) {}
 
-void HealthPack::Load() {
+void HealthElixir::Load() {
     if (!texture.loadFromFile("assets/images/health_pack.png")) {
         std::cerr << "Failed to load health pack texture" << std::endl;
     }

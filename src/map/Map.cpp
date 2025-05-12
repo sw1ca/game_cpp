@@ -1,7 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
-#include "Map.h"
+#include "../../include/map/Map.h"
 #include <unordered_set>
 
 Map::Map() : tileWidth(16), tileHeight(16), totalTilesX(0), totalTilesY(0), mapWidth(0), mapHeight(0) {}

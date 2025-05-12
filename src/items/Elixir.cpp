@@ -1,4 +1,4 @@
-#include "Elixir.h"
+#include "../../include/items/Elixir.h"
 
 Elixir::Elixir(float amount) : active(true), effectAmount(amount){}
 

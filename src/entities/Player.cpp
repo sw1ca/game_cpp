@@ -1,5 +1,5 @@
-#include "Player.h"
-#include "Math.h"
+#include "../../include/entities/Player.h"
+#include "../../include/core/Math.h"
 #include "SFML/Graphics/RenderWindow.hpp"
 #include "SFML/Window/Mouse.hpp"
 #include <iostream>

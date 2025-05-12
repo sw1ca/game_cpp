@@ -3,7 +3,7 @@
 #include "SFML/Graphics/Texture.hpp"
 #include "SFML/Graphics/Sprite.hpp"
 #include "Tile.h"
-#include "Player.h"
+#include "../entities/Player.h"
 #include <vector>
 #include <string>
 

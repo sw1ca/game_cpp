@@ -1,7 +1,7 @@
 #include <iostream>
-#include "Math.h"
-#include "Enemy.h"
-#include "Player.h"
+#include "../../include/core/Math.h"
+#include "../../include/entities/Enemy.h"
+#include "../../include/entities/Player.h"
 
 Enemy::Enemy(Player& player, const EnemyConfig& config) :
     player(&player),

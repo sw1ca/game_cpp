@@ -20,37 +20,37 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(SFML)
 FetchContent_MakeAvailable(fmt)
 
-add_executable(2324L_25_s31225_SR main.cpp
-        Bullet.cpp
-        Bullet.h
-        Math.cpp
-        Math.h
-        Map.cpp
-        Math.h
-        Tile.h
-        FrameRate.cpp
-        FrameRate.h
-        Player.cpp
-        Player.h
-        Skeleton.h
-        Enemy.cpp
-        Enemy.h
-        Boss.h
-        Camera.h
-        Camera.cpp
-        Golem.h
-        EnemyConfig.h
-        Goblin.h
-        Goblin.cpp
-        Witch.h
-        Beaver.h
-        Beaver.cpp
-        Nocturne.h
-        Mage.h
-        HealthPack.h
-        HealthPack.cpp
-        Elixir.h
-        Elixir.cpp
+add_executable(2324L_25_s31225_SR src/main.cpp
+        src/core/Bullet.cpp
+        include/core/Bullet.h
+        src/core/Math.cpp
+        include/core/Math.h
+        src/map/Map.cpp
+        include/core/Math.h
+        include/map/Tile.h
+        src/core/FrameRate.cpp
+        include/core/FrameRate.h
+        src/entities/Player.cpp
+        include/entities/Player.h
+        include/entities/Skeleton.h
+        src/entities/Enemy.cpp
+        include/entities/Enemy.h
+        include/entities/Boss.h
+        include/core/Camera.h
+        src/core/Camera.cpp
+        include/entities/Golem.h
+        include/config/EnemyConfig.h
+        include/entities/Goblin.h
+        src/entities/Goblin.cpp
+        include/entities/Witch.h
+        include/entities/Beaver.h
+        src/entities/Beaver.cpp
+        include/entities/Nocturne.h
+        include/entities/Mage.h
+        include/items/HealthElixir.h
+        src/items/HealthElixir.cpp
+        include/items/Elixir.h
+        src/items/Elixir.cpp
 )
 add_custom_command(
         TARGET 2324L_25_s31225_SR POST_BUILD

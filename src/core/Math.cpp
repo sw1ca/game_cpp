@@ -1,5 +1,5 @@
 #include <cmath>
-#include "Math.h"
+#include "../../include/core/Math.h"
 
 sf::Vector2f Math::NormalizeVector(sf::Vector2f vector) {
     float m = std::sqrt(vector.x * vector.x + vector.y * vector.y);

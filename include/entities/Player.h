@@ -7,10 +7,10 @@
 #include "SFML/Graphics/RenderWindow.hpp"
 #include "SFML/Graphics/CircleShape.hpp"
 #include "SFML/Graphics/RectangleShape.hpp"
-#include "Bullet.h"
+#include "../core/Bullet.h"
 #include "Enemy.h"
-#include "Map.h"
-#include "HealthPack.h"
+#include "../map/Map.h"
+#include "../items/HealthElixir.h"
 #pragma once
 
 class Map;

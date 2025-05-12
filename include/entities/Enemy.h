@@ -4,8 +4,8 @@
 #include "SFML/Graphics/RectangleShape.hpp"
 #include "SFML/Graphics/Text.hpp"
 #include "SFML/Graphics/Sprite.hpp"
-#include "Bullet.h"
-#include "EnemyConfig.h"
+#include "../core/Bullet.h"
+#include "../config/EnemyConfig.h"
 
 class Player;
 class Enemy {

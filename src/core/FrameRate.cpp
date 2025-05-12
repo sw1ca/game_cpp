@@ -1,4 +1,4 @@
-#include "FrameRate.h"
+#include "../../include/core/FrameRate.h"
 #include <iostream>
 
 FrameRate::FrameRate() : timer(0) {

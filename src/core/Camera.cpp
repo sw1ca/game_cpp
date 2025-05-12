@@ -1,4 +1,4 @@
-#include "Camera.h"
+#include "../../include/core/Camera.h"
 #include <algorithm>
 
 void Camera::update(const sf::Vector2f& targetPosition) {

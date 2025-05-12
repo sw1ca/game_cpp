@@ -1,19 +1,19 @@
-#include <fmt/ranges.h>
-#include <SFML/Graphics.hpp>
+#include "fmt/ranges.h"
+#include "SFML/Graphics.hpp"
 
-#include "Player.h"
-#include "Map.h"
-#include "Enemy.h"
-#include "Skeleton.h"
-#include "Boss.h"
-#include "Golem.h"
-#include "Goblin.h"
-#include "Witch.h"
-#include "Beaver.h"
-#include "Nocturne.h"
-#include "Mage.h"
-#include "FrameRate.h"
-#include "Camera.h"
+#include "../include/entities/Player.h"
+#include "../include/map/Map.h"
+#include "../include/entities/Enemy.h"
+#include "../include/entities/Skeleton.h"
+#include "../include/entities/Boss.h"
+#include "../include/entities/Golem.h"
+#include "../include/entities/Goblin.h"
+#include "../include/entities/Witch.h"
+#include "../include/entities/Beaver.h"
+#include "../include/entities/Nocturne.h"
+#include "../include/entities/Mage.h"
+#include "../include/core/FrameRate.h"
+#include "../include/core/Camera.h"
 
 auto main() -> int {
     //-------------------------------- INITIALIZE --------------------------------
@@ -38,7 +38,7 @@ auto main() -> int {
             {2880, 1055}
     };
     for (const auto& position : healthPackPositions) {
-        auto healthPack = std::make_unique<HealthPack>();
+        auto healthPack = std::make_unique<HealthElixir>();
         healthPack->Load();
         healthPack->Initialize(position);
         elixirs.push_back(std::move(healthPack));

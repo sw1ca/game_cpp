@@ -1,5 +1,5 @@
-#include "Bullet.h"
-#include "math.h"
+#include "../../include/core/Bullet.h"
+#include "../../include/core/Math.h"
 Bullet::Bullet() : speed(0) {}
 
 Bullet::~Bullet() {}

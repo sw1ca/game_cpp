@@ -3,9 +3,9 @@
 #include "Elixir.h"
 #pragma once
 
-class HealthPack : public Elixir {
+class HealthElixir : public Elixir {
 public:
-    HealthPack();
+    HealthElixir();
     void Load() override;
 
 private:
