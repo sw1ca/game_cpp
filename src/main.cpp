@@ -2,8 +2,6 @@
 #include "SFML/Graphics.hpp"
 
 #include "../include/entities/Player.h"
-#include "../include/map/Map.h"
-#include "../include/entities/Enemy.h"
 #include "../include/entities/Skeleton.h"
 #include "../include/entities/Boss.h"
 #include "../include/entities/Golem.h"
