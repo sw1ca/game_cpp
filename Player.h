@@ -1,4 +1,6 @@
 #pragma once
+
+#include <memory>
 #include "SFML/Graphics/Sprite.hpp"
 #include "SFML/Graphics/Texture.hpp"
 #include "SFML/Window/Keyboard.hpp"
@@ -22,7 +24,7 @@ public:
     sf::Sprite playerSprite;
     void Initialize();
     void Load();
-    void Update(float deltaTime, std::vector<Enemy*>& enemies, sf::Vector2f& mousePosition, Map& map, sf::RenderWindow& window, std::vector<HealthPack>& healthPacks);
+    void Update(float deltaTime, std::vector<Enemy*>& enemies, sf::Vector2f& mousePosition, Map& map, sf::RenderWindow& window, std::vector<std::unique_ptr<Elixir>>& elixirs);
     void Draw(sf::RenderWindow& window);
     void ChangeHealth(int hp);
 
@@ -34,7 +36,7 @@ public:
     }
 
     void Move(Map& map, sf::Vector2f direction, float deltaTime);
-    void checkHealthPackCollision(std::vector<HealthPack>& healthPacks);
+    void checkElixirCollision(const std::vector<std::unique_ptr<Elixir>>& elixirs);
 private:
     sf::Texture playerTexture;
     sf::Text healthText;

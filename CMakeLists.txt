@@ -49,6 +49,8 @@ add_executable(2324L_25_s31225_SR main.cpp
         Mage.h
         HealthPack.h
         HealthPack.cpp
+        Elixir.h
+        Elixir.cpp
 )
 add_custom_command(
         TARGET 2324L_25_s31225_SR POST_BUILD

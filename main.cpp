@@ -31,19 +31,18 @@ auto main() -> int {
     Beaver beaver(player);
     Nocturne nocturne(player);
     Mage mage(player);
-    std::vector<HealthPack> healthPacks;
-    HealthPack healthPack1;
-    HealthPack healthPack2;
-    HealthPack healthPack3;
-    healthPack1.Load();
-    healthPack2.Load();
-    healthPack3.Load();
-    healthPack1.Initialize(sf::Vector2f(1345, 1550));
-    healthPack2.Initialize(sf::Vector2f(900, 755));
-    healthPack3.Initialize(sf::Vector2f(2880, 1055));
-    healthPacks.push_back(healthPack1);
-    healthPacks.push_back(healthPack2);
-    healthPacks.push_back(healthPack3);
+    std::vector<std::unique_ptr<Elixir>> elixirs;
+    const std::vector<sf::Vector2f> healthPackPositions = {
+            {1345, 1550},
+            {900, 755},
+            {2880, 1055}
+    };
+    for (const auto& position : healthPackPositions) {
+        auto healthPack = std::make_unique<HealthPack>();
+        healthPack->Load();
+        healthPack->Initialize(position);
+        elixirs.push_back(std::move(healthPack));
+    }
     FrameRate frameRate;
     Map map;
     Camera camera;
@@ -98,7 +97,7 @@ auto main() -> int {
         map.Update(deltaTime);
 
         if(player.health > 0) {
-            player.Update(deltaTime, enemies, mousePosition, map, window, healthPacks);
+            player.Update(deltaTime, enemies, mousePosition, map, window, elixirs);
             skeleton.Update(deltaTime);
             boss.Update(deltaTime);
             golem.Update(deltaTime);
@@ -123,9 +122,9 @@ auto main() -> int {
         beaver.Draw(window);
         nocturne.Draw(window);
         mage.Draw(window);
-        for (auto& pack : healthPacks) {
-            if (pack.isActive()) {
-                pack.Draw(window);
+        for (const auto& elixir : elixirs) {
+            if (elixir->isActive()) {
+                elixir->Draw(window);
             }
         }
         frameRate.Draw(window);
