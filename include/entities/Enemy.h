@@ -16,14 +16,14 @@ public:
     Enemy(Player& player, const EnemyConfig& config);
     virtual ~Enemy();
 
-    virtual void Initialize();
-    virtual void Load();
-    virtual void Update(float deltaTime);
-    virtual void Draw(sf::RenderWindow& window);
+    virtual void initialize();
+    virtual void load();
+    virtual void update(float deltaTime);
+    virtual void draw(sf::RenderWindow& window);
 
-    void ChangeHealth(int hp);
-    inline const sf::Rect<float> GetGlobalBounds() const { return sprite.getGlobalBounds(); }
-    bool CheckPlayerDetectionCollision(const sf::RectangleShape& playerShape);
+    void changeHealth(int hp);
+    inline const sf::Rect<float> getGlobalBounds() const { return sprite.getGlobalBounds(); }
+    bool checkPlayerDetectionCollision(const sf::RectangleShape& playerShape);
     void shootingPlayer(float deltaTime);
 
 protected:

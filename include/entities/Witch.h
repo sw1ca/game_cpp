@@ -4,11 +4,11 @@
 
 class Witch : public Enemy {
 public:
-    Witch(Player &player) : Enemy(player, CreateConfig()) {
+    Witch(Player &player) : Enemy(player, createConfig()) {
         sprite.setTextureRect(sf::IntRect(85, 0, 130, 128));
     }
 private:
-    static EnemyConfig CreateConfig() {
+    static EnemyConfig createConfig() {
         return {
                 "assets/images/Witch.png",
                 sf::Vector2f(1125, 1945),

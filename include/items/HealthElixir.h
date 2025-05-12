@@ -6,7 +6,7 @@
 class HealthElixir : public Elixir {
 public:
     HealthElixir();
-    void Load() override;
+    void load() override;
 
 private:
     static constexpr float HEAL_AMOUNT = 50.0f;

@@ -13,12 +13,12 @@ Enemy::Enemy(Player& player, const EnemyConfig& config) :
 
 Enemy::~Enemy() {}
 
-void Enemy::ChangeHealth(int hp) {
+void Enemy::changeHealth(int hp) {
     health += hp;
     healthText.setString(std::to_string(health));
 }
 
-void Enemy::Initialize() {
+void Enemy::initialize() {
     if (!texture.loadFromFile(config.texturePath)) {
         std::cout << "Failed to load texture: " << config.texturePath << std::endl;
         return;
@@ -39,7 +39,7 @@ void Enemy::Initialize() {
     detectionRectangle.setOutlineThickness(1);
 }
 
-void Enemy::Load() {
+void Enemy::load() {
     if(font.loadFromFile("assets/Fonts/arial.ttf")) {
         std::cout << "Arial.ttf font has been loaded successfully" << std::endl;
         healthText.setFont(font);
@@ -50,7 +50,7 @@ void Enemy::Load() {
     }
 }
 
-void Enemy::Update(float deltaTime) {
+void Enemy::update(float deltaTime) {
     if(health > 0) {
         boundingRectangle.setPosition(sprite.getPosition());
         float textWidth = healthText.getLocalBounds().width;
@@ -75,7 +75,7 @@ void Enemy::Update(float deltaTime) {
     }
 }
 
-void Enemy::Draw(sf::RenderWindow &window) {
+void Enemy::draw(sf::RenderWindow &window) {
     if(health > 0) {
         window.draw(sprite);
         //window.draw(boundingRectangle);
@@ -83,33 +83,33 @@ void Enemy::Draw(sf::RenderWindow &window) {
         window.draw(healthText);
 
         for (size_t i = 0; i < bullets.size(); ++i) {
-            bullets[i].Draw(window);
+            bullets[i].draw(window);
         }
     }
 }
 
-bool Enemy::CheckPlayerDetectionCollision(const sf::RectangleShape &playerShape) {
+bool Enemy::checkPlayerDetectionCollision(const sf::RectangleShape &playerShape) {
     return detectionRectangle.getGlobalBounds().intersects(playerShape.getGlobalBounds());
 }
 
 void Enemy::shootingPlayer(float deltaTime) {
     sf::Vector2f playerPosition = player->getPosition();
     sf::RectangleShape playerShape = player->getBoundingRectanglePosition();
-    if (CheckPlayerDetectionCollision(playerShape) && fireRateTimer >= maxFireRate) {
+    if (checkPlayerDetectionCollision(playerShape) && fireRateTimer >= maxFireRate) {
         bullets.push_back(Bullet());
         int i = bullets.size() - 1;
-        bullets[i].Initialize(sprite.getPosition(), const_cast<sf::Vector2f &>(playerPosition), config.bulletSpeed);
+        bullets[i].initialize(sprite.getPosition(), const_cast<sf::Vector2f &>(playerPosition), config.bulletSpeed);
         bullets[i].setBulletSize(config.bulletSize.x / 2.0f);
         bullets[i].setBulletColor(config.bulletColor);
         fireRateTimer = 0;
     }
 
     for (size_t i = 0; i < bullets.size(); i++) {
-        bullets[i].Update(deltaTime);
+        bullets[i].update(deltaTime);
 
         if (player->health > 0) {
-            if (Math::didRectCollide(bullets[i].GetGlobalBounds(), playerShape.getGlobalBounds())) {
-                player->ChangeHealth(-damage);
+            if (Math::didRectCollide(bullets[i].getGlobalBounds(), playerShape.getGlobalBounds())) {
+                player->changeHealth(-damage);
                 bullets.erase(bullets.begin() + i); // deleting bullets
             }
         }

@@ -9,7 +9,7 @@ Beaver::Beaver(Player& player) : Enemy(player, createConfig()) {
     attackTimer = 0.0f;
     attackRange = 50.0f;
 }
-void Beaver::Update(float deltaTime) {
+void Beaver::update(float deltaTime) {
     if(health > 0) {
         boundingRectangle.setPosition(sprite.getPosition());
 
@@ -25,7 +25,7 @@ void Beaver::Update(float deltaTime) {
         detectionRectangle.setPosition(boundingCenter);
 
         sf::RectangleShape playerShape = player -> getBoundingRectanglePosition();
-        if (CheckPlayerDetectionCollision(playerShape)) {
+        if (checkPlayerDetectionCollision(playerShape)) {
             followPlayer(deltaTime);
             attackPlayer();
         }
@@ -45,7 +45,7 @@ void Beaver::attackPlayer() {
     float distance = std::sqrt(direction.x * direction.x + direction.y * direction.y);
 
     if(distance <= attackRange && attackTimer >= attackCooldown) {
-        player->ChangeHealth(-damage);
+        player->changeHealth(-damage);
         attackTimer = 0.0f;
     }
 }

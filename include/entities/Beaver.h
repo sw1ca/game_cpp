@@ -4,7 +4,7 @@
 class Beaver : public Enemy {
 public:
     Beaver(Player& player);
-    void Update(float deltaTime) override;
+    void update(float deltaTime) override;
 private:
     float movementSpeed;
     float attackCooldown;

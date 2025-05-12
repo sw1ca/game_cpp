@@ -22,11 +22,11 @@ public:
 
     int health;
     sf::Sprite playerSprite;
-    void Initialize();
-    void Load();
-    void Update(float deltaTime, std::vector<Enemy*>& enemies, sf::Vector2f& mousePosition, Map& map, sf::RenderWindow& window, std::vector<std::unique_ptr<Elixir>>& elixirs);
-    void Draw(sf::RenderWindow& window);
-    void ChangeHealth(int hp);
+    void initialize();
+    void load();
+    void update(float deltaTime, std::vector<Enemy*>& enemies, sf::Vector2f& mousePosition, Map& map, sf::RenderWindow& window, std::vector<std::unique_ptr<Elixir>>& elixirs);
+    void draw(sf::RenderWindow& window);
+    void changeHealth(int hp);
 
     sf::Vector2f getPosition() const;
     void setPosition(sf::Vector2f position);
@@ -35,7 +35,7 @@ public:
         return sf::Vector2f(playerSprite.getGlobalBounds().width, playerSprite.getGlobalBounds().height);
     }
 
-    void Move(Map& map, sf::Vector2f direction, float deltaTime);
+    void move(Map& map, sf::Vector2f direction, float deltaTime);
     void checkElixirCollision(const std::vector<std::unique_ptr<Elixir>>& elixirs);
 private:
     sf::Texture playerTexture;

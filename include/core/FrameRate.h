@@ -14,9 +14,9 @@ public:
     FrameRate();
     ~FrameRate();
 
-    void Initialize();
-    void Load();
-    void Update(double deltaTime);
-    void Draw(sf::RenderWindow& window);
+    void initialize();
+    void load();
+    void update(double deltaTime);
+    void draw(sf::RenderWindow& window);
 };
 

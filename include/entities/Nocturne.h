@@ -4,11 +4,11 @@
 
 class Nocturne : public Enemy {
 public:
-    Nocturne(Player &player) : Enemy(player, CreateConfig()) {
+    Nocturne(Player &player) : Enemy(player, createConfig()) {
         sprite.setTextureRect(sf::IntRect(224, 0, 93, 125));
     }
 private:
-    static EnemyConfig CreateConfig() {
+    static EnemyConfig createConfig() {
         return {
                 "assets/images/Witch.png",
                 sf::Vector2f(3210, 1900),

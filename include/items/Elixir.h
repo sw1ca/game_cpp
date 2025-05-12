@@ -12,9 +12,9 @@ public:
     Elixir(float amount);
     virtual ~Elixir() = default;
 
-    virtual void Initialize(sf::Vector2f position);
-    virtual void Load() = 0;
-    virtual void Draw(sf::RenderWindow& window) const;
+    virtual void initialize(sf::Vector2f position);
+    virtual void load() = 0;
+    virtual void draw(sf::RenderWindow& window) const;
 
     void setPosition(sf::Vector2f position);
     bool isActive() const;

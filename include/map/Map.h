@@ -24,22 +24,22 @@ private:
     std::vector<int> mapData;
     std::vector<sf::Sprite> mapSprites;
 
-    void LoadTileset(const char* tilesetPath);
-    void LoadMapData(const char* mapPath);
-    std::string LoadFileToString(const char* filePath);
-    void ParseCSVData(const std::string& csvData);
+    void loadTileset(const char* tilesetPath);
+    void loadMapData(const char* mapPath);
+    std::string loadFileToString(const char* filePath);
+    void parseCSVData(const std::string& csvData);
 
 public:
     Map();
     ~Map();
 
-    void Initialize();
-    void Load();
-    void Update(float deltaTime);
-    void Draw(sf::RenderWindow& window);
-    bool IsBlocked(int x, int y);
-    void MovePlayer(Player& player, sf::Vector2f direction);
-    void LoadSection(int section);
+    void initialize();
+    void load();
+    void update(float deltaTime);
+    void draw(sf::RenderWindow& window);
+    bool isBlocked(int x, int y);
+    void movePlayer(Player& player, sf::Vector2f direction);
+    void loadSection(int section);
     int getMapWidth() const { return mapWidth; }
     int getMapHeight() const { return mapHeight; }
     int getTileWidth() const { return tileWidth; }

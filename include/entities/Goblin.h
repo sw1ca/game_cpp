@@ -4,7 +4,7 @@
 class Goblin : public Enemy {
 public:
     Goblin(Player &player);
-    void Update(float deltaTime) override;
+    void update(float deltaTime) override;
 
 private:
     float movementSpeed;

@@ -7,10 +7,10 @@ FrameRate::FrameRate() : timer(0) {
 FrameRate::~FrameRate() {
 
 }
-void FrameRate::Initialize() {
+void FrameRate::initialize() {
 
 }
-void FrameRate::Load() {
+void FrameRate::load() {
     if(font.loadFromFile("assets/Fonts/arial.ttf")) {
         std::cout << "Arial.ttf font has been loaded successfully" << std::endl;
         frameRateText.setFont(font);
@@ -18,7 +18,7 @@ void FrameRate::Load() {
         std::cout << "Failed to load Arial.ttf font" << std::endl;
     }
 }
-void FrameRate::Update(double deltaTime) {
+void FrameRate::update(double deltaTime) {
     timer += deltaTime; // 16.66667 ms 60 fps
 
     if (timer >= 100.0) {
@@ -27,7 +27,7 @@ void FrameRate::Update(double deltaTime) {
         timer = 0;
     }
 }
-void FrameRate::Draw(sf::RenderWindow &window) {
+void FrameRate::draw(sf::RenderWindow &window) {
     sf::View currentView = window.getView();
     window.setView(window.getDefaultView());
     window.draw(frameRateText);

@@ -8,7 +8,7 @@
 Player::Player() : health(200), playerSpeed(1.f), maxfireRate(150), fireRateTimer(0) {}
 Player::~Player() {}
 
-void Player::ChangeHealth(int hp) {
+void Player::changeHealth(int hp) {
     health += hp;
     healthText.setString(std::to_string(health));
 }
@@ -16,15 +16,15 @@ void Player::setPosition(sf::Vector2f position) {
     playerSprite.setPosition(position);
     boundingRectangle.setPosition(position);
 }
-void Player::Move(Map &map, sf::Vector2f direction, float deltaTime) {
+void Player::move(Map &map, sf::Vector2f direction, float deltaTime) {
     sf::Vector2f newPosition = playerSprite.getPosition() + direction * playerSpeed * deltaTime;
 
-    if (!map.IsBlocked(newPosition.x, newPosition.y)) {
+    if (!map.isBlocked(newPosition.x, newPosition.y)) {
         playerSprite.setPosition(newPosition);
         boundingRectangle.setPosition(newPosition);
     }
 }
-void Player::Initialize() {
+void Player::initialize() {
     boundingRectangle.setFillColor(sf::Color::Transparent);
     boundingRectangle.setOutlineColor(sf::Color::Red);
     boundingRectangle.setOutlineThickness(1);
@@ -41,7 +41,7 @@ void Player::Initialize() {
     gameOverText.setFillColor(sf::Color::White);
     gameOverText.setString("GAME OVER!");
 }
-void Player::Load() {
+void Player::load() {
     if(font.loadFromFile("assets/Fonts/arial.ttf")) {
         std::cout << "Arial.ttf font has been loaded successfully" << std::endl;
         healthText.setFont(font);
@@ -66,7 +66,7 @@ void Player::Load() {
         std::cout << "Player image failed to loaded!" << std::endl;
     }
 }
-void Player::Update(float deltaTime, std::vector<Enemy*>& enemies, sf::Vector2f& mousePosition, Map& map, sf::RenderWindow& window, std::vector<std::unique_ptr<Elixir>>& elixirs) {
+void Player::update(float deltaTime, std::vector<Enemy*>& enemies, sf::Vector2f& mousePosition, Map& map, sf::RenderWindow& window, std::vector<std::unique_ptr<Elixir>>& elixirs) {
     if(health > 0) {
         sf::Vector2f position = playerSprite.getPosition();
         healthText.setPosition(playerSprite.getPosition().x + boundingRectangle.getSize().x / 4, playerSprite.getPosition().y - 10);
@@ -94,10 +94,10 @@ void Player::Update(float deltaTime, std::vector<Enemy*>& enemies, sf::Vector2f&
         }
 
         if(movement != sf::Vector2f(0.f, 0.f)) {
-            map.MovePlayer(*this, movement);
+            map.movePlayer(*this, movement);
         }
 
-        Move(map, movement, deltaTime);
+        move(map, movement, deltaTime);
 
         boundingRectangle.setPosition(position + movement * playerSpeed * deltaTime);
         // -------------------------------------------------------------------
@@ -108,17 +108,17 @@ void Player::Update(float deltaTime, std::vector<Enemy*>& enemies, sf::Vector2f&
             sf::Vector2f adjustedMousePosition = window.mapPixelToCoords(mousePosition);
             bullets.push_back(Bullet());
             int i = bullets.size() - 1;
-            bullets[i].Initialize(playerSprite.getPosition(), adjustedMousePosition, 0.5f);
+            bullets[i].initialize(playerSprite.getPosition(), adjustedMousePosition, 0.5f);
             fireRateTimer = 0;
         }
 
         for (size_t i = 0; i < bullets.size(); i++) {
-            bullets[i].Update(deltaTime);
+            bullets[i].update(deltaTime);
 
             for (Enemy *enemy : enemies) {
                 if (enemy->health > 0) {
-                    if (Math::didRectCollide(bullets[i].GetGlobalBounds(), enemy->GetGlobalBounds())) {
-                        enemy->ChangeHealth(-10);
+                    if (Math::didRectCollide(bullets[i].getGlobalBounds(), enemy->getGlobalBounds())) {
+                        enemy->changeHealth(-10);
                         bullets.erase(bullets.begin() + i); // deleting bullets
                     }
                 }
@@ -130,14 +130,14 @@ void Player::Update(float deltaTime, std::vector<Enemy*>& enemies, sf::Vector2f&
 
 }
 
-void Player::Draw(sf::RenderWindow& window) {
+void Player::draw(sf::RenderWindow& window) {
     if (health > 0) {
         window.draw(playerSprite);
         //window.draw(boundingRectangle);
         window.draw(healthText);
 
         for (size_t i = 0; i < bullets.size(); ++i) {
-            bullets[i].Draw(window);
+            bullets[i].draw(window);
         }
     }else{
         sf::View currentView = window.getView();
@@ -163,7 +163,7 @@ sf::RectangleShape Player::getBoundingRectanglePosition() const {
 void Player::checkElixirCollision(const std::vector<std::unique_ptr<Elixir>>& elixirs) {
     for (const auto& elixir: elixirs) {
         if (elixir->isActive() && playerSprite.getGlobalBounds().intersects(elixir->getGlobalBounds())) {
-            ChangeHealth(elixir->getEffectAmount());
+            changeHealth(elixir->getEffectAmount());
             if (health > 200) {
                 health = 200;
                 healthText.setString(std::to_string(health));

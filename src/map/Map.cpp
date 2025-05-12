@@ -9,14 +9,14 @@ Map::Map() : tileWidth(16), tileHeight(16), totalTilesX(0), totalTilesY(0), mapW
 Map::~Map() {
     delete[] tiles;
 }
-void Map::Load() {
-    LoadTileset("assets/Map/Tilesheet.png");
-    LoadSection(0);
+void Map::load() {
+    loadTileset("assets/Map/Tilesheet.png");
+    loadSection(0);
 }
-void Map::Initialize() {}
-void Map::LoadSection(int section) {
+void Map::initialize() {}
+void Map::loadSection(int section) {
         std::string sectionPath = "assets/Map/newMap2.tmx";
-        std::string fileContent = LoadFileToString(sectionPath.c_str());
+        std::string fileContent = loadFileToString(sectionPath.c_str());
         if (fileContent.empty()) return;
 
 
@@ -37,10 +37,10 @@ void Map::LoadSection(int section) {
         size_t dataEnd = mapDataContent.find("</data>");
         std::string csvData = mapDataContent.substr(dataPos, dataEnd - dataPos);
 
-        ParseCSVData(csvData);
+    parseCSVData(csvData);
 }
 
-void Map::LoadTileset(const char* tilesetPath) {
+void Map::loadTileset(const char* tilesetPath) {
     if (tileSheetTexture.loadFromFile(tilesetPath)) { // 224x240
         std::cout << "Map sheet images Loaded!" << std::endl;
 
@@ -75,7 +75,7 @@ void Map::LoadTileset(const char* tilesetPath) {
     }
 }
 
-std::string Map::LoadFileToString(const char* filePath) {
+std::string Map::loadFileToString(const char* filePath) {
     std::ifstream file(filePath);
     if (!file.is_open()) {
         std::cerr << "Failed to open file: " << filePath << std::endl;
@@ -86,7 +86,7 @@ std::string Map::LoadFileToString(const char* filePath) {
     return buffer.str();
 }
 
-void Map::ParseCSVData(const std::string& csvData) {
+void Map::parseCSVData(const std::string& csvData) {
     std::stringstream ss(csvData);
     std::string item;
     std::vector<int> sectionData;
@@ -132,8 +132,8 @@ void Map::ParseCSVData(const std::string& csvData) {
     }
 }
 
-void Map::LoadMapData(const char* mapPath) {
-    std::string fileContent = LoadFileToString(mapPath);
+void Map::loadMapData(const char* mapPath) {
+    std::string fileContent = loadFileToString(mapPath);
     if (fileContent.empty()) return;
 
     size_t mapStart = fileContent.find("<map");
@@ -153,16 +153,16 @@ void Map::LoadMapData(const char* mapPath) {
     size_t dataEnd = mapDataContent.find("</data>");
     std::string csvData = mapDataContent.substr(dataPos, dataEnd - dataPos);
 
-    ParseCSVData(csvData);
+    parseCSVData(csvData);
 }
-void Map::Update(float deltaTime) {}
+void Map::update(float deltaTime) {}
 
-void Map::Draw(sf::RenderWindow &window) {
+void Map::draw(sf::RenderWindow &window) {
     for (const auto& sprite : mapSprites) {
         window.draw(sprite);
     }
 }
-bool Map::IsBlocked(int x, int y) {
+bool Map::isBlocked(int x, int y) {
     int tileX = x / tileWidth;
     int tileY = y / tileHeight;
     int index = tileX + tileY * mapWidth;
@@ -174,7 +174,7 @@ bool Map::IsBlocked(int x, int y) {
     int tileId = mapData[index];
     return tiles[tileId].blocked;
 }
-void Map::MovePlayer(Player &player, sf::Vector2f direction) {
+void Map::movePlayer(Player &player, sf::Vector2f direction) {
     sf::Vector2f newPosition = player.getPosition() + direction;
 
     // Define border positions
@@ -196,7 +196,7 @@ void Map::MovePlayer(Player &player, sf::Vector2f direction) {
     if(newPosition.x + player.getSize().x > rightBorder) {
         newPosition.x = rightBorder - player.getSize().x;
     }
-    if(!IsBlocked(newPosition.x, newPosition.y)) {
+    if(!isBlocked(newPosition.x, newPosition.y)) {
         player.setPosition(newPosition);
     }
 

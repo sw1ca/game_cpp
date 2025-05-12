@@ -4,11 +4,11 @@
 
 class Mage : public Enemy {
 public:
-    Mage(Player &player) : Enemy(player, CreateConfig()) {
+    Mage(Player &player) : Enemy(player, createConfig()) {
         sprite.setTextureRect(sf::IntRect(0, 0, 128, 90));
     }
 private:
-    static EnemyConfig CreateConfig() {
+    static EnemyConfig createConfig() {
         return {
                 "assets/images/Mage.png",
                 sf::Vector2f(3250, 900),

@@ -12,11 +12,11 @@ public:
     Bullet();
     ~Bullet();
 
-    void Initialize(const sf::Vector2f& position, sf::Vector2f& target, float speed);
-    void Update(float deltaTime);
-    void Draw(sf::RenderWindow& window);
+    void initialize(const sf::Vector2f& position, sf::Vector2f& target, float speed);
+    void update(float deltaTime);
+    void draw(sf::RenderWindow& window);
     void setBulletSize(const float radius);
-    sf::FloatRect GetGlobalBounds() const { return circleShape.getGlobalBounds(); }
+    sf::FloatRect getGlobalBounds() const { return circleShape.getGlobalBounds(); }
     void setBulletColor(const sf::Color& color);
 };
 

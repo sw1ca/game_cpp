@@ -3,11 +3,11 @@
 
 class Boss : public Enemy {
 public:
-    Boss(Player &player) : Enemy(player, CreateConfig()) {
+    Boss(Player &player) : Enemy(player, createConfig()) {
         sprite.setTextureRect(sf::IntRect(0, 0, 64, 64));
     }
 private:
-    static EnemyConfig CreateConfig() {
+    static EnemyConfig createConfig() {
         return {
                 "assets/images/Boss.png",
                 sf::Vector2f(1520, 705),

@@ -2,7 +2,7 @@
 
 HealthElixir::HealthElixir() : Elixir(HEAL_AMOUNT) {}
 
-void HealthElixir::Load() {
+void HealthElixir::load() {
     if (!texture.loadFromFile("assets/images/health_pack.png")) {
         std::cerr << "Failed to load health pack texture" << std::endl;
     }

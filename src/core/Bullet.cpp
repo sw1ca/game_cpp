@@ -4,18 +4,18 @@ Bullet::Bullet() : speed(0) {}
 
 Bullet::~Bullet() {}
 
-void Bullet::Initialize(const sf::Vector2f& position, sf::Vector2f& target, float speed) {
+void Bullet::initialize(const sf::Vector2f& position, sf::Vector2f& target, float speed) {
     this -> speed = speed;
     circleShape.setRadius(5.0f);
     circleShape.setPosition(position);
-    direction = Math::NormalizeVector(target - position);
+    direction = Math::normalizeVector(target - position);
 }
 
-void Bullet::Update(float deltaTime) {
+void Bullet::update(float deltaTime) {
     circleShape.setPosition(circleShape.getPosition() + direction * speed * deltaTime);
 }
 
-void Bullet::Draw(sf::RenderWindow &window) {
+void Bullet::draw(sf::RenderWindow &window) {
     window.draw(circleShape);
 }
 void Bullet::setBulletSize(const float radius) {

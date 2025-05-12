@@ -39,38 +39,38 @@ auto main() -> int {
     };
     for (const auto& position : healthPackPositions) {
         auto healthPack = std::make_unique<HealthElixir>();
-        healthPack->Load();
-        healthPack->Initialize(position);
+        healthPack->load();
+        healthPack->initialize(position);
         elixirs.push_back(std::move(healthPack));
     }
     FrameRate frameRate;
     Map map;
     Camera camera;
     // -------------------------INITIALIZE------------------------
-    player.Initialize();
-    skeleton.Initialize();
-    boss.Initialize();
-    golem.Initialize();
-    goblin.Initialize();
-    witch.Initialize();
-    beaver.Initialize();
-    nocturne.Initialize();
-    mage.Initialize();
-    frameRate.Initialize();
-    map.Initialize();
+    player.initialize();
+    skeleton.initialize();
+    boss.initialize();
+    golem.initialize();
+    goblin.initialize();
+    witch.initialize();
+    beaver.initialize();
+    nocturne.initialize();
+    mage.initialize();
+    frameRate.initialize();
+    map.initialize();
     // -------------------------INITIALIZE------------------------
     // -------------------------LOAD------------------------
-    player.Load();
-    skeleton.Load();
-    boss.Load();
-    golem.Load();
-    goblin.Load();
-    witch.Load();
-    beaver.Load();
-    nocturne.Load();
-    mage.Load();
-    frameRate.Load();
-    map.Load();
+    player.load();
+    skeleton.load();
+    boss.load();
+    golem.load();
+    goblin.load();
+    witch.load();
+    beaver.load();
+    nocturne.load();
+    mage.load();
+    frameRate.load();
+    map.load();
     camera.initialize(window, map);
     // -------------------------LOAD------------------------
 
@@ -93,41 +93,41 @@ auto main() -> int {
         }
         sf::Vector2f mousePosition = sf::Vector2f(sf::Mouse::getPosition(window));
 
-        frameRate.Update(deltaTime);
-        map.Update(deltaTime);
+        frameRate.update(deltaTime);
+        map.update(deltaTime);
 
         if(player.health > 0) {
-            player.Update(deltaTime, enemies, mousePosition, map, window, elixirs);
-            skeleton.Update(deltaTime);
-            boss.Update(deltaTime);
-            golem.Update(deltaTime);
-            goblin.Update(deltaTime);
-            witch.Update(deltaTime);
-            beaver.Update(deltaTime);
-            nocturne.Update(deltaTime);
-            mage.Update(deltaTime);
+            player.update(deltaTime, enemies, mousePosition, map, window, elixirs);
+            skeleton.update(deltaTime);
+            boss.update(deltaTime);
+            golem.update(deltaTime);
+            goblin.update(deltaTime);
+            witch.update(deltaTime);
+            beaver.update(deltaTime);
+            nocturne.update(deltaTime);
+            mage.update(deltaTime);
         }
         camera.update(player.getPosition());
         window.setView(camera.getView());
         //-------------------------------- UPDATE --------------------------------
         //-------------------------------- DRAW --------------------------------
         window.clear(sf::Color::Black);
-        map.Draw(window);
-        player.Draw(window);
-        skeleton.Draw(window);
-        boss.Draw(window);
-        golem.Draw(window);
-        goblin.Draw(window);
-        witch.Draw(window);
-        beaver.Draw(window);
-        nocturne.Draw(window);
-        mage.Draw(window);
+        map.draw(window);
+        player.draw(window);
+        skeleton.draw(window);
+        boss.draw(window);
+        golem.draw(window);
+        goblin.draw(window);
+        witch.draw(window);
+        beaver.draw(window);
+        nocturne.draw(window);
+        mage.draw(window);
         for (const auto& elixir : elixirs) {
             if (elixir->isActive()) {
-                elixir->Draw(window);
+                elixir->draw(window);
             }
         }
-        frameRate.Draw(window);
+        frameRate.draw(window);
         window.display();
         //-------------------------------- DRAW --------------------------------
     }

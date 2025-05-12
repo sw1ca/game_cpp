@@ -4,11 +4,11 @@
 
 class Golem : public Enemy {
 public:
-    Golem(Player &player) : Enemy(player, CreateConfig()) {
+    Golem(Player &player) : Enemy(player, createConfig()) {
         sprite.setTextureRect(sf::IntRect(0, 2 * 64, 64, 64));
     }
 private:
-    static EnemyConfig CreateConfig() {
+    static EnemyConfig createConfig() {
         return {
                 "assets/images/Golem.png",
                 sf::Vector2f(2080, 1295),

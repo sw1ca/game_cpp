@@ -2,10 +2,10 @@
 
 Elixir::Elixir(float amount) : active(true), effectAmount(amount){}
 
-void Elixir::Initialize(sf::Vector2f position) {
+void Elixir::initialize(sf::Vector2f position) {
     sprite.setPosition(position);
 }
-void Elixir::Draw(sf::RenderWindow& window) const {
+void Elixir::draw(sf::RenderWindow& window) const {
     if(active) {
         window.draw(sprite);
     }
