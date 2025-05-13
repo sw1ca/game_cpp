@@ -51,6 +51,9 @@ add_executable(2324L_25_s31225_SR src/main.cpp
         src/items/HealthElixir.cpp
         include/items/Elixir.h
         src/items/Elixir.cpp
+        src/items/StrengthElixir.cpp
+        include/items/StrengthElixir.h
+        include/config/ElixirConfig.h
 )
 add_custom_command(
         TARGET 2324L_25_s31225_SR POST_BUILD

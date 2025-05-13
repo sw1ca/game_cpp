@@ -25,6 +25,9 @@ public:
     inline const sf::Rect<float> getGlobalBounds() const { return sprite.getGlobalBounds(); }
     bool checkPlayerDetectionCollision(const sf::RectangleShape& playerShape);
     void shootingPlayer(float deltaTime);
+    bool isDead() const { return health <= 0; }
+    sf::Vector2f getPosition() const { return sprite.getPosition(); }
+    virtual bool isBoss() const { return false; }
 
 protected:
     Player* player;

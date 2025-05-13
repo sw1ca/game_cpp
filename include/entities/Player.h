@@ -11,6 +11,7 @@
 #include "Enemy.h"
 #include "../map/Map.h"
 #include "../items/HealthElixir.h"
+#include "../items/StrengthElixir.h"
 #pragma once
 
 class Map;
@@ -36,7 +37,7 @@ public:
     }
 
     void move(Map& map, sf::Vector2f direction, float deltaTime);
-    void checkElixirCollision(const std::vector<std::unique_ptr<Elixir>>& elixirs);
+    void checkElixirCollision(std::vector<std::unique_ptr<Elixir>>& elixirs);
 private:
     sf::Texture playerTexture;
     sf::Text healthText;
@@ -47,6 +48,7 @@ private:
     float maxfireRate;
     float fireRateTimer;
     float playerSpeed;
+    int bulletDamage = 10;
 
     sf::RectangleShape boundingRectangle;
     sf::Vector2i size;

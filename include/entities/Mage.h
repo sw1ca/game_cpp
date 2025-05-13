@@ -7,6 +7,8 @@ public:
     Mage(Player &player) : Enemy(player, createConfig()) {
         sprite.setTextureRect(sf::IntRect(0, 0, 128, 90));
     }
+    bool isBoss() const override { return true; }
+
 private:
     static EnemyConfig createConfig() {
         return {

@@ -118,7 +118,7 @@ void Player::update(float deltaTime, std::vector<Enemy*>& enemies, sf::Vector2f&
             for (Enemy *enemy : enemies) {
                 if (enemy->health > 0) {
                     if (Math::didRectCollide(bullets[i].getGlobalBounds(), enemy->getGlobalBounds())) {
-                        enemy->changeHealth(-10);
+                        enemy->changeHealth(-bulletDamage);
                         bullets.erase(bullets.begin() + i); // deleting bullets
                     }
                 }
@@ -160,15 +160,21 @@ sf::Vector2f Player::getPosition() const {
 sf::RectangleShape Player::getBoundingRectanglePosition() const {
     return boundingRectangle;
 }
-void Player::checkElixirCollision(const std::vector<std::unique_ptr<Elixir>>& elixirs) {
-    for (const auto& elixir: elixirs) {
+void Player::checkElixirCollision(std::vector<std::unique_ptr<Elixir>>& elixirs) {
+    for (const auto &elixir: elixirs) {
         if (elixir->isActive() && playerSprite.getGlobalBounds().intersects(elixir->getGlobalBounds())) {
-            changeHealth(elixir->getEffectAmount());
-            if (health > 200) {
-                health = 200;
-                healthText.setString(std::to_string(health));
+            if (elixir->isHealthElixir()) {
+                changeHealth(elixir->getEffectAmount());
+                if (health > 200) {
+                    health = 200;
+                    healthText.setString(std::to_string(health));
+                }
+                elixir->setActive(false);
             }
-            elixir->setActive(false);
+            else if (elixir->isStrengthElixir()) {
+                bulletDamage += elixir->getEffectAmount();
+                elixir->setActive(false);
+            }
         }
     }
 }

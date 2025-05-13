@@ -7,6 +7,8 @@ public:
     Golem(Player &player) : Enemy(player, createConfig()) {
         sprite.setTextureRect(sf::IntRect(0, 2 * 64, 64, 64));
     }
+    bool isBoss() const override { return true; }
+
 private:
     static EnemyConfig createConfig() {
         return {

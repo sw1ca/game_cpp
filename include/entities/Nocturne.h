@@ -7,6 +7,8 @@ public:
     Nocturne(Player &player) : Enemy(player, createConfig()) {
         sprite.setTextureRect(sf::IntRect(224, 0, 93, 125));
     }
+    bool isBoss() const override { return true; }
+
 private:
     static EnemyConfig createConfig() {
         return {

@@ -12,6 +12,8 @@
 #include "../include/entities/Mage.h"
 #include "../include/core/FrameRate.h"
 #include "../include/core/Camera.h"
+#include "../include/config/ElixirConfig.h"
+
 
 auto main() -> int {
     //-------------------------------- INITIALIZE --------------------------------
@@ -30,20 +32,15 @@ auto main() -> int {
     Nocturne nocturne(player);
     Mage mage(player);
     std::vector<std::unique_ptr<Elixir>> elixirs;
-    const std::vector<sf::Vector2f> healthPackPositions = {
+    const std::vector<sf::Vector2f> healthElixirPositions = {
             {1345, 1550},
             {900, 755},
             {2880, 1055}
     };
-    for (const auto& position : healthPackPositions) {
-        auto healthPack = std::make_unique<HealthElixir>();
-        healthPack->load();
-        healthPack->initialize(position);
-        elixirs.push_back(std::move(healthPack));
-    }
     FrameRate frameRate;
     Map map;
     Camera camera;
+    ElixirConfig::createElixirs<HealthElixir>(elixirs, healthElixirPositions);
     // -------------------------INITIALIZE------------------------
     player.initialize();
     skeleton.initialize();
@@ -75,6 +72,12 @@ auto main() -> int {
     sf::Clock clock;
     std::vector<Enemy*> enemies = { &skeleton, &boss, &golem, &goblin, &witch, &beaver, &nocturne, &mage };
 
+    std::map<Enemy*, bool> bossElixirCreated;
+    for (auto* enemy : enemies) {
+        if (enemy->isBoss()) {
+            bossElixirCreated[enemy] = false;
+        }
+    }
 
     //main game loop
     while (window.isOpen())
@@ -104,6 +107,23 @@ auto main() -> int {
             beaver.update(deltaTime);
             nocturne.update(deltaTime);
             mage.update(deltaTime);
+        }
+        for (auto* enemy : enemies) {
+            if (enemy->isBoss() && enemy->isDead() && !bossElixirCreated[enemy]) {
+                auto position = enemy->getPosition();
+                bool elixirExists = false;
+                for (const auto& elixir : elixirs) {
+                    if (elixir->getPosition() == position && elixir->isActive()) {
+                        elixirExists = true;
+                        break;
+                    }
+                }
+
+                if (!elixirExists) {
+                    ElixirConfig::createElixirs<StrengthElixir>(elixirs, {position});
+                    bossElixirCreated[enemy] = true;
+                }
+            }
         }
         camera.update(player.getPosition());
         window.setView(camera.getView());

@@ -6,6 +6,8 @@ public:
     Boss(Player &player) : Enemy(player, createConfig()) {
         sprite.setTextureRect(sf::IntRect(0, 0, 64, 64));
     }
+    bool isBoss() const override { return true; }
+
 private:
     static EnemyConfig createConfig() {
         return {
