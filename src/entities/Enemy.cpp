@@ -3,13 +3,15 @@
 #include "../../include/entities/Enemy.h"
 #include "../../include/entities/Player.h"
 
+int Enemy::nextId = 0;
 Enemy::Enemy(Player& player, const EnemyConfig& config) :
     player(&player),
     config(config),
     health(config.health),
     maxFireRate(250),
     fireRateTimer(0),
-    damage(config.damage) {}
+    damage(config.damage),
+    id(nextId++){}
 
 Enemy::~Enemy() {}
 

@@ -13,6 +13,7 @@
 #include "../include/core/FrameRate.h"
 #include "../include/core/Camera.h"
 #include "../include/config/ElixirConfig.h"
+#include "../include/core/GameStateManager.h"
 
 
 auto main() -> int {
@@ -92,6 +93,7 @@ auto main() -> int {
             if (event.type == sf::Event::Closed)
                 window.close();
         }
+        GameStateManager::handleInput(player, enemies, elixirs);
         sf::Vector2f mousePosition = sf::Vector2f(sf::Mouse::getPosition(window));
 
         frameRate.update(deltaTime);

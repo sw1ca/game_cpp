@@ -54,6 +54,8 @@ add_executable(2324L_25_s31225_SR src/main.cpp
         src/items/StrengthElixir.cpp
         include/items/StrengthElixir.h
         include/config/ElixirConfig.h
+        include/core/GameStateManager.h
+        src/core/GameStateManager.cpp
 )
 add_custom_command(
         TARGET 2324L_25_s31225_SR POST_BUILD

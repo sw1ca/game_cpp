@@ -12,6 +12,7 @@ class Enemy {
 public:
     sf::Sprite sprite;
     int health;
+    const int id;
 
     Enemy(Player& player, const EnemyConfig& config);
     virtual ~Enemy();
@@ -28,6 +29,11 @@ public:
     bool isDead() const { return health <= 0; }
     sf::Vector2f getPosition() const { return sprite.getPosition(); }
     virtual bool isBoss() const { return false; }
+    void setPosition(sf::Vector2f& position) {
+        sprite.setPosition(position);
+    }
+    int getId() const { return id; }
+    void die() { health = 0; }
 
 protected:
     Player* player;
@@ -44,4 +50,5 @@ protected:
     float maxFireRate;
     float fireRateTimer;
     int damage;
+    static int nextId;
 };
