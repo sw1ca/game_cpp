@@ -1,6 +1,7 @@
 #include "../../include/items/Elixir.h"
 
-Elixir::Elixir(float amount) : active(true), effectAmount(amount){}
+int Elixir::nextId = 0;
+Elixir::Elixir(float amount) : active(true), effectAmount(amount), id(nextId++){}
 
 void Elixir::initialize(sf::Vector2f position) {
     sprite.setPosition(position);
@@ -24,4 +25,7 @@ sf::FloatRect Elixir::getGlobalBounds() const {
 }
 float Elixir::getEffectAmount() const {
     return effectAmount;
+}
+int Elixir::getId() const {
+    return id;
 }

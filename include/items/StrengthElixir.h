@@ -6,8 +6,8 @@
 class StrengthElixir : public Elixir {
 public:
     StrengthElixir();
-    void load() override;
     bool isStrengthElixir() const override { return true; }
+    void load() override;
 
 private:
     static constexpr int STRENGTH_AMOUNT = 5;
