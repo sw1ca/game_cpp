@@ -24,7 +24,7 @@ bool GameStateManager::saveGame(const Player& player, const std::vector<Enemy*>&
     }
 
     // Save player data
-    int health = player.health;
+    int health = player.getHealth();
     sf::Vector2f playerPosition = player.getPosition();
     saveFile.write(reinterpret_cast<const char*>(&health), sizeof(health));
     saveFile.write(reinterpret_cast<const char*>(&playerPosition), sizeof(playerPosition));
@@ -81,7 +81,7 @@ bool GameStateManager::loadGame(Player& player, std::vector<Enemy*>& enemies, st
         std::cout << "Failed to read player data" << std::endl;
         return false;
     }
-    player.health = health;
+    player.setHealth(health);
     player.setPosition(playerPosition);
 
     // Load enemies data

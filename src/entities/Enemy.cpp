@@ -109,7 +109,7 @@ void Enemy::shootingPlayer(float deltaTime) {
     for (size_t i = 0; i < bullets.size(); i++) {
         bullets[i].update(deltaTime);
 
-        if (player->health > 0) {
+        if (player->getHealth() > 0) {
             if (Math::didRectCollide(bullets[i].getGlobalBounds(), playerShape.getGlobalBounds())) {
                 player->changeHealth(-damage);
                 bullets.erase(bullets.begin() + i); // deleting bullets

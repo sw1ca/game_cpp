@@ -21,7 +21,7 @@ public:
     Player();
     ~Player();
 
-    int health;
+
     sf::Sprite playerSprite;
     void initialize();
     void load();
@@ -38,6 +38,9 @@ public:
 
     void move(Map& map, sf::Vector2f direction, float deltaTime);
     void checkElixirCollision(std::vector<std::unique_ptr<Elixir>>& elixirs);
+    void setHealth(int newHealth);
+    int getHealth() const;
+
 private:
     sf::Texture playerTexture;
     sf::Text healthText;
@@ -45,6 +48,7 @@ private:
     sf::Text gameOverText;
     std::vector<Bullet> bullets;
 
+    int health;
     float maxfireRate;
     float fireRateTimer;
     float playerSpeed;

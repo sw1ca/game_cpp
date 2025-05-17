@@ -5,12 +5,21 @@
 #include <iostream>
 #include <memory>
 
-Player::Player() : health(200), playerSpeed(1.f), maxfireRate(150), fireRateTimer(0) {}
+Player::Player() : playerSpeed(1.f), maxfireRate(150), fireRateTimer(0) {
+    setHealth(200);
+}
 Player::~Player() {}
 
 void Player::changeHealth(int hp) {
     health += hp;
     healthText.setString(std::to_string(health));
+}
+void Player::setHealth(int newHealth) {
+    health = newHealth;
+    healthText.setString(std::to_string(health));
+}
+int Player::getHealth() const {
+    return health;
 }
 void Player::setPosition(sf::Vector2f position) {
     playerSprite.setPosition(position);

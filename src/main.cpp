@@ -99,7 +99,7 @@ auto main() -> int {
         frameRate.update(deltaTime);
         map.update(deltaTime);
 
-        if(player.health > 0) {
+        if(player.getHealth() > 0) {
             player.update(deltaTime, enemies, mousePosition, map, window, elixirs);
             skeleton.update(deltaTime);
             boss.update(deltaTime);
