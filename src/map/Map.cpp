@@ -11,10 +11,10 @@ Map::~Map() {
 }
 void Map::load() {
     loadTileset("assets/Map/Tilesheet.png");
-    loadSection(0);
+    loadSection();
 }
 void Map::initialize() {}
-void Map::loadSection(int section) {
+void Map::loadSection() {
         std::string sectionPath = "assets/Map/newMap2.tmx";
         std::string fileContent = loadFileToString(sectionPath.c_str());
         if (fileContent.empty()) return;
@@ -130,30 +130,6 @@ void Map::parseCSVData(const std::string& csvData) {
             }
         }
     }
-}
-
-void Map::loadMapData(const char* mapPath) {
-    std::string fileContent = loadFileToString(mapPath);
-    if (fileContent.empty()) return;
-
-    size_t mapStart = fileContent.find("<map");
-    size_t mapEnd = fileContent.find("</map>") + 6;
-
-    std::string mapDataContent = fileContent.substr(mapStart, mapEnd - mapStart);
-
-    size_t widthPos = mapDataContent.find("width=\"") + 7;
-    size_t widthEnd = mapDataContent.find("\"", widthPos);
-    mapWidth = std::stoi(mapDataContent.substr(widthPos, widthEnd - widthPos));
-
-    size_t heightPos = mapDataContent.find("height=\"") + 8;
-    size_t heightEnd = mapDataContent.find("\"", heightPos);
-    mapHeight = std::stoi(mapDataContent.substr(heightPos, heightEnd - heightPos));
-
-    size_t dataPos = mapDataContent.find("<data encoding=\"csv\">") + 21;
-    size_t dataEnd = mapDataContent.find("</data>");
-    std::string csvData = mapDataContent.substr(dataPos, dataEnd - dataPos);
-
-    parseCSVData(csvData);
 }
 void Map::update(float deltaTime) {}
 

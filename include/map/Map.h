@@ -25,7 +25,6 @@ private:
     std::vector<sf::Sprite> mapSprites;
 
     void loadTileset(const char* tilesetPath);
-    void loadMapData(const char* mapPath);
     std::string loadFileToString(const char* filePath);
     void parseCSVData(const std::string& csvData);
 
@@ -39,7 +38,7 @@ public:
     void draw(sf::RenderWindow& window);
     bool isBlocked(int x, int y);
     void movePlayer(Player& player, sf::Vector2f direction);
-    void loadSection(int section);
+    void loadSection();
     int getMapWidth() const { return mapWidth; }
     int getMapHeight() const { return mapHeight; }
     int getTileWidth() const { return tileWidth; }
