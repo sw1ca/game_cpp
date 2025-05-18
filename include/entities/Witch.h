@@ -7,7 +7,7 @@ public:
     Witch(Player &player) : Enemy(player, createConfig()) {
         sprite.setTextureRect(sf::IntRect(85, 0, 130, 128));
     }
-    bool isBoss() const override { return true; }
+    bool isBoss() const override { return false; }
 
 private:
     static EnemyConfig createConfig() {
