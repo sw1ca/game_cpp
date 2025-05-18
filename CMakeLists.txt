@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.27)
-project(2324L_25_s31225_SR)
+project(2425S_18_s31225_ZJ)
 
 set(CMAKE_CXX_STANDARD 20)
 set(BUILD_SHARED_LIBS FALSE)
@@ -20,7 +20,7 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(SFML)
 FetchContent_MakeAvailable(fmt)
 
-add_executable(2324L_25_s31225_SR src/main.cpp
+add_executable(2425S_18_s31225_ZJ src/main.cpp
         src/core/Bullet.cpp
         include/core/Bullet.h
         src/core/Math.cpp
@@ -58,10 +58,10 @@ add_executable(2324L_25_s31225_SR src/main.cpp
         src/core/GameStateManager.cpp
 )
 add_custom_command(
-        TARGET 2324L_25_s31225_SR POST_BUILD
+        TARGET 2425S_18_s31225_ZJ POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy_directory
-        ${CMAKE_SOURCE_DIR}/assets $<TARGET_FILE_DIR:2324L_25_s31225_SR>/assets
+        ${CMAKE_SOURCE_DIR}/assets $<TARGET_FILE_DIR:2425S_18_s31225_ZJ>/assets
 )
-target_link_libraries(2324L_25_s31225_SR fmt)
-target_link_libraries(2324L_25_s31225_SR sfml-graphics)
+target_link_libraries(2425S_18_s31225_ZJ fmt)
+target_link_libraries(2425S_18_s31225_ZJ sfml-graphics)
 
