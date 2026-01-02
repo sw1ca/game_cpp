@@ -1,17 +1,12 @@
 #include "../../include/core/GameStateManager.h"
 #include <fstream>
-#include <cstdlib>
 #include <filesystem>
 
 bool GameStateManager::saveKeyPressed = false;
 bool GameStateManager::loadKeyPressed = false;
 
 std::string GameStateManager::getSavePath() {
-    const char* userProfile = std::getenv("USERPROFILE");
-    if (userProfile == nullptr) {
-        return "save_game.dat";
-    }
-    return "C:\\Users\\rswie\\OneDrive\\Pulpit\\save_game.dat";
+    return "saves/save_game.dat";
 }
 bool GameStateManager::saveGame(const Player& player, const std::vector<Enemy*>& enemies, const std::vector<std::unique_ptr<Elixir>> &elixirs) {
     std::string savePath = getSavePath();
